@@ -63,7 +63,8 @@ def inference_single():
         model = HyenaDNAPreTrainedModel.from_pretrained(
             "./checkpoints",
             pretrained_model_name,
-            download=True,
+            # Change to True to download the checkpoint
+            download=False,
             config=backbone_cfg,
             device=device,
             use_head=use_head,
@@ -78,7 +79,9 @@ def inference_single():
     tokenizer = CharacterTokenizer(
         characters=["A", "C", "G", "T", "N"],  # add DNA characters, N is uncertain
         model_max_length=max_length + 2,  # to account for special tokens, like EOS
-        add_special_tokens=False,  # we handle special tokens elsewhere
+        # add_special_tokens argument is incompatible with newer tokenizers:
+        # AttributeError: add_special_tokens conflicts with the method add_special_tokens in CharacterTokenizer
+        # add_special_tokens=False,  # we handle special tokens elsewhere
         padding_side="left",  # since HyenaDNA is causal, we pad on the left
     )
 
