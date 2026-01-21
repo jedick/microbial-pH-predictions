@@ -1,2 +1,4 @@
 RDP_classifier/
 checkpoints/
+fasta/
+.env
