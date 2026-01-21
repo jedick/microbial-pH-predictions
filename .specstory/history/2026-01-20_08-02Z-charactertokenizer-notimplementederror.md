@@ -16,7 +16,7 @@ NotImplementedError                       Traceback (most recent call last)
 Cell In[2], line 1
 ----> 1 inference_single()
 
-File ~/github/ML-predictions-of-pH/hyena-dna/inference.py:79, in inference_single()
+File ~/github/microbial-pH-predictions/hyena-dna/inference.py:79, in inference_single()
      76     model = HyenaDNAModel(**backbone_cfg, use_head=use_head, n_classes=n_classes)
      78 # create tokenizer
 ---> 79 tokenizer = CharacterTokenizer(
@@ -32,7 +32,7 @@ File ~/github/ML-predictions-of-pH/hyena-dna/inference.py:79, in inference_singl
      90 # create a sample 450k long, prepare
      91 sequence = "ACTG" * int(max_length / 4)
 
-File ~/github/ML-predictions-of-pH/hyena-dna/standalone_hyenadna.py:1185, in CharacterTokenizer.__init__(self, characters, model_max_length, padding_side, **kwargs)
+File ~/github/microbial-pH-predictions/hyena-dna/standalone_hyenadna.py:1185, in CharacterTokenizer.__init__(self, characters, model_max_length, padding_side, **kwargs)
    1181 unk_token = AddedToken("[UNK]", lstrip=False, rstrip=False)
    1183 mask_token = AddedToken("[MASK]", lstrip=True, rstrip=False)
 -> 1185 super().__init__(
@@ -96,7 +96,7 @@ Examining the relevant files to understand the issue.
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/hyena-dna/inference.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/hyena-dna/inference.py</summary>
 
 </details>
 </tool-use>
@@ -104,7 +104,7 @@ Examining the relevant files to understand the issue.
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/hyena-dna/standalone_hyenadna.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/hyena-dna/standalone_hyenadna.py</summary>
 
 </details>
 </tool-use>

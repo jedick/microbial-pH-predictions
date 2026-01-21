@@ -36,7 +36,7 @@ No results found
 <details>
 <summary>Tool use: **glob_file_search** • Searched codebase ".cursorrules" • **0** result in **1** directory</summary>
 
-Directory: **/home/jedick/github/ML-predictions-of-pH** (0 file)
+Directory: **/home/jedick/github/microbial-pH-predictions** (0 file)
 
 </details>
 </tool-use>
@@ -54,7 +54,7 @@ Checking existing commit rules for context:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file">
-<details><summary>Tool use: **read_file** • Read file: /home/jedick/github/ML-predictions-of-pH/work/cursor_commit_message_rules.txt</summary>
+<details><summary>Tool use: **read_file** • Read file: /home/jedick/github/microbial-pH-predictions/work/cursor_commit_message_rules.txt</summary>
 
 </details>
 </tool-use>
@@ -73,7 +73,7 @@ Creating the README and `.cursorrules` files:
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **write** • Edit file: /home/jedick/github/ML-predictions-of-pH/README.md</summary>
+<details><summary>Tool use: **write** • Edit file: /home/jedick/github/microbial-pH-predictions/README.md</summary>
 
 **Chunk 1**
 Lines added: 15, lines removed: 1
@@ -106,7 +106,7 @@ Lines added: 15, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **write** • Edit file: /home/jedick/github/ML-predictions-of-pH/.cursorrules</summary>
+<details><summary>Tool use: **write** • Edit file: /home/jedick/github/microbial-pH-predictions/.cursorrules</summary>
 
 **Chunk 1**
 Lines added: 45, lines removed: 1
@@ -207,7 +207,7 @@ Switching to the `.cursor/rules` structure with separate `.mdc` files. Checking 
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file">
-<details><summary>Tool use: **read_file** • Read file: /home/jedick/github/ML-predictions-of-pH/.cursorrules</summary>
+<details><summary>Tool use: **read_file** • Read file: /home/jedick/github/microbial-pH-predictions/.cursorrules</summary>
 
 </details>
 </tool-use>
@@ -225,10 +225,10 @@ Creating the `.cursor/rules` directory and separate `.mdc` files for each rule:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
-<details><summary>Tool use: **run_terminal_cmd** • Run command: mkdir -p /home/jedick/github/ML-predictions-of-pH/.cursor/rules</summary>
+<details><summary>Tool use: **run_terminal_cmd** • Run command: mkdir -p /home/jedick/github/microbial-pH-predictions/.cursor/rules</summary>
 
 ```bash
-mkdir -p /home/jedick/github/ML-predictions-of-pH/.cursor/rules
+mkdir -p /home/jedick/github/microbial-pH-predictions/.cursor/rules
 ```
 </details>
 </tool-use>
@@ -237,7 +237,7 @@ mkdir -p /home/jedick/github/ML-predictions-of-pH/.cursor/rules
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **write** • Edit file: /home/jedick/github/ML-predictions-of-pH/.cursor/rules/commit-rules.mdc</summary>
+<details><summary>Tool use: **write** • Edit file: /home/jedick/github/microbial-pH-predictions/.cursor/rules/commit-rules.mdc</summary>
 
 **Chunk 1**
 Lines added: 39, lines removed: 1
@@ -294,7 +294,7 @@ Lines added: 39, lines removed: 1
 
 <tool-use data-tool-type="write" data-tool-name="write">
 
-<details><summary>Tool use: **write** • Edit file: /home/jedick/github/ML-predictions-of-pH/.cursor/rules/readme-updates.mdc</summary>
+<details><summary>Tool use: **write** • Edit file: /home/jedick/github/microbial-pH-predictions/.cursor/rules/readme-updates.mdc</summary>
 
 **Chunk 1**
 Lines added: 4, lines removed: 1

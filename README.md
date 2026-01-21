@@ -1,4 +1,4 @@
-# ML Predictions of pH
+# Microbial pH predictions
 
 ## Project Overview
 

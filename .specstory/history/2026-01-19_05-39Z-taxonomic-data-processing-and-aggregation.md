@@ -19,7 +19,7 @@ Examining the input file structure:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/data/RDP_classifier/APV+20.tab</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/data/RDP_classifier/APV+20.tab</summary>
 
 </details>
 </tool-use>
@@ -42,7 +42,7 @@ Parameters:
 ```json
 {
   "pattern": "Archaea;domain",
-  "path": "/home/jedick/github/ML-predictions-of-pH/data/RDP_classifier/APV+20.tab",
+  "path": "/home/jedick/github/microbial-pH-predictions/data/RDP_classifier/APV+20.tab",
   "caseInsensitive": false
 }
 ```
@@ -52,10 +52,10 @@ Result:
 {
   "success": {
     "pattern": "Archaea;domain",
-    "path": "/home/jedick/github/ML-predictions-of-pH/data/RDP_classifier/APV+20.tab",
+    "path": "/home/jedick/github/microbial-pH-predictions/data/RDP_classifier/APV+20.tab",
     "outputMode": "content",
     "workspaceResults": {
-      "/home/jedick/github/ML-predictions-of-pH": {
+      "/home/jedick/github/microbial-pH-predictions": {
         "content": {
           "matches": [
             {
@@ -130,7 +130,7 @@ Parameters:
 ```json
 {
   "pattern": "unclassified_",
-  "path": "/home/jedick/github/ML-predictions-of-pH/data/RDP_classifier/APV+20.tab",
+  "path": "/home/jedick/github/microbial-pH-predictions/data/RDP_classifier/APV+20.tab",
   "caseInsensitive": false
 }
 ```
@@ -140,10 +140,10 @@ Result:
 {
   "success": {
     "pattern": "unclassified_",
-    "path": "/home/jedick/github/ML-predictions-of-pH/data/RDP_classifier/APV+20.tab",
+    "path": "/home/jedick/github/microbial-pH-predictions/data/RDP_classifier/APV+20.tab",
     "outputMode": "content",
     "workspaceResults": {
-      "/home/jedick/github/ML-predictions-of-pH": {
+      "/home/jedick/github/microbial-pH-predictions": {
         "content": {
           "matches": [
             {
@@ -238,7 +238,7 @@ Parameters:
 ```json
 {
   "pattern": "genus;$",
-  "path": "/home/jedick/github/ML-predictions-of-pH/data/RDP_classifier/APV+20.tab",
+  "path": "/home/jedick/github/microbial-pH-predictions/data/RDP_classifier/APV+20.tab",
   "caseInsensitive": false
 }
 ```
@@ -248,10 +248,10 @@ Result:
 {
   "success": {
     "pattern": "genus;$",
-    "path": "/home/jedick/github/ML-predictions-of-pH/data/RDP_classifier/APV+20.tab",
+    "path": "/home/jedick/github/microbial-pH-predictions/data/RDP_classifier/APV+20.tab",
     "outputMode": "content",
     "workspaceResults": {
-      "/home/jedick/github/ML-predictions-of-pH": {
+      "/home/jedick/github/microbial-pH-predictions": {
         "content": {}
       }
     }
@@ -273,7 +273,7 @@ Checking a few more examples to confirm the pattern:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/data/RDP_classifier/APV+20.tab</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/data/RDP_classifier/APV+20.tab</summary>
 
 </details>
 </tool-use>
@@ -295,7 +295,7 @@ Parameters:
 
 ```json
 {
-  "targetDirectory": "/home/jedick/github/ML-predictions-of-pH"
+  "targetDirectory": "/home/jedick/github/microbial-pH-predictions"
 }
 ```
 Result:
@@ -303,13 +303,13 @@ Result:
 ```json
 {
   "directoryTreeRoot": {
-    "absPath": "/home/jedick/github/ML-predictions-of-pH",
+    "absPath": "/home/jedick/github/microbial-pH-predictions",
     "childrenDirs": [
       {
-        "absPath": "/home/jedick/github/ML-predictions-of-pH/.cursor",
+        "absPath": "/home/jedick/github/microbial-pH-predictions/.cursor",
         "childrenDirs": [
           {
-            "absPath": "/home/jedick/github/ML-predictions-of-pH/.cursor/rules",
+            "absPath": "/home/jedick/github/microbial-pH-predictions/.cursor/rules",
             "childrenFiles": [
               {
                 "name": "commit-rules.mdc"
@@ -324,10 +324,10 @@ Result:
         "childrenWereProcessed": true
       },
       {
-        "absPath": "/home/jedick/github/ML-predictions-of-pH/.specstory",
+        "absPath": "/home/jedick/github/microbial-pH-predictions/.specstory",
         "childrenDirs": [
           {
-            "absPath": "/home/jedick/github/ML-predictions-of-pH/.specstory/history",
+            "absPath": "/home/jedick/github/microbial-pH-predictions/.specstory/history",
             "childrenFiles": [
               {
                 "name": "2026-01-19_04-20Z-new-project-setup-and-cursor-rules.md"
@@ -344,10 +344,10 @@ Result:
         "childrenWereProcessed": true
       },
       {
-        "absPath": "/home/jedick/github/ML-predictions-of-pH/data",
+        "absPath": "/home/jedick/github/microbial-pH-predictions/data",
         "childrenDirs": [
           {
-            "absPath": "/home/jedick/github/ML-predictions-of-pH/data/RDP_classifier",
+            "absPath": "/home/jedick/github/microbial-pH-predictions/data/RDP_classifier",
             "childrenFiles": [
               {
                 "name": "APV+20.tab"
@@ -620,7 +620,7 @@ Creating a Python file with the data processing function:
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/process_rdp_data.py</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/process_rdp_data.py</summary>
 
 </details>
 
@@ -635,10 +635,10 @@ Testing the function with the example file:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && python process_rdp_data.py data/RDP_classifier/APV+20.tab Bacteria</summary>
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && python process_rdp_data.py data/RDP_classifier/APV+20.tab Bacteria</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && python process_rdp_data.py data/RDP_classifier/APV+20.tab Bacteria
+cd /home/jedick/github/microbial-pH-predictions && python process_rdp_data.py data/RDP_classifier/APV+20.tab Bacteria
 ```
 
 ```
@@ -675,7 +675,7 @@ Verifying the function handles the examples correctly. Checking a specific case:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && python -c "
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && python -c "
 import pandas as pd
 from process_rdp_data import process_rdp_data
 
@@ -692,7 +692,7 @@ else:
 "</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && python -c "
+cd /home/jedick/github/microbial-pH-predictions && python -c "
 import pandas as pd
 from process_rdp_data import process_rdp_data
 
@@ -732,7 +732,7 @@ Verifying unclassified lineages are handled correctly. Checking the logic:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && python -c "
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && python -c "
 from process_rdp_data import parse_lineage
 
 # Test the two examples from the user
@@ -750,7 +750,7 @@ print(taxa2)
 "</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && python -c "
+cd /home/jedick/github/microbial-pH-predictions && python -c "
 from process_rdp_data import parse_lineage
 
 # Test the two examples from the user
@@ -789,7 +789,7 @@ Fixing the parsing logic: unclassified lineages should only contribute to known 
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/process_rdp_data.py</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/process_rdp_data.py</summary>
 
 </details>
 
@@ -811,7 +811,7 @@ Adding a wrapper function to process all `.tab` files in a directory and combine
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/process_rdp_data.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/process_rdp_data.py</summary>
 
 </details>
 </tool-use>
@@ -825,7 +825,7 @@ Adding the wrapper function to process all files in a directory:
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/process_rdp_data.py</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/process_rdp_data.py</summary>
 
 </details>
 
@@ -840,7 +840,7 @@ Updating the main block to support both single file and directory processing:
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/process_rdp_data.py</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/process_rdp_data.py</summary>
 
 </details>
 
@@ -854,10 +854,10 @@ Testing the wrapper function with the RDP classifier directory:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && python -c "from process_rdp_data import process_rdp_directory; import sys; df = process_rdp_directory('data/RDP_classifier', domain='Bacteria', output_file='data/test_bacteria_counts.csv'); print('\nTest completed successfully!')" 2>&1 | head -100</summary>
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && python -c "from process_rdp_data import process_rdp_directory; import sys; df = process_rdp_directory('data/RDP_classifier', domain='Bacteria', output_file='data/test_bacteria_counts.csv'); print('\nTest completed successfully!')" 2>&1 | head -100</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && python -c "from process_rdp_data import process_rdp_directory; import sys; df = process_rdp_directory('data/RDP_classifier', domain='Bacteria', output_file='data/test_bacteria_counts.csv'); print('\nTest completed successfully!')" 2>&1 | head -100
+cd /home/jedick/github/microbial-pH-predictions && python -c "from process_rdp_data import process_rdp_directory; import sys; df = process_rdp_directory('data/RDP_classifier', domain='Bacteria', output_file='data/test_bacteria_counts.csv'); print('\nTest completed successfully!')" 2>&1 | head -100
 ```
 </details>
 </tool-use>
@@ -870,7 +870,7 @@ Testing with a single file to verify the function works, then testing the direct
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && python -c "
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && python -c "
 from process_rdp_data import process_rdp_directory
 from pathlib import Path
 import tempfile
@@ -893,7 +893,7 @@ print('\n✓ Function works correctly!')
 "</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && python -c "
+cd /home/jedick/github/microbial-pH-predictions && python -c "
 from process_rdp_data import process_rdp_directory
 from pathlib import Path
 import tempfile
@@ -952,7 +952,7 @@ Verifying the output file structure and cleaning up the test file:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && python -c "
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && python -c "
 import pandas as pd
 df = pd.read_csv('data/test_output.csv', index_col=[0, 1])
 print('Output file structure:')
@@ -964,7 +964,7 @@ print(f'\nSample columns (first 5): {list(df.columns[:5])}')
 " && rm -f data/test_output.csv</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && python -c "
+cd /home/jedick/github/microbial-pH-predictions && python -c "
 import pandas as pd
 df = pd.read_csv('data/test_output.csv', index_col=[0, 1])
 print('Output file structure:')
@@ -1003,10 +1003,10 @@ Verifying the command-line interface works:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && python process_rdp_data.py --help 2>&1 || python process_rdp_data.py 2>&1 | head -10</summary>
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && python process_rdp_data.py --help 2>&1 || python process_rdp_data.py 2>&1 | head -10</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && python process_rdp_data.py --help 2>&1 || python process_rdp_data.py 2>&1 | head -10
+cd /home/jedick/github/microbial-pH-predictions && python process_rdp_data.py --help 2>&1 || python process_rdp_data.py 2>&1 | head -10
 ```
 
 ```
@@ -1075,7 +1075,7 @@ Optimizing memory usage by refactoring to avoid large intermediate DataFrames. S
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/process_rdp_data.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/process_rdp_data.py</summary>
 
 </details>
 </tool-use>
@@ -1090,7 +1090,7 @@ Refactoring to use a dictionary-based approach to reduce memory usage:
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/process_rdp_data.py</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/process_rdp_data.py</summary>
 
 </details>
 
@@ -1106,7 +1106,7 @@ Updating `process_rdp_directory` to handle the dictionary return type and add st
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/process_rdp_data.py</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/process_rdp_data.py</summary>
 
 </details>
 
@@ -1122,7 +1122,7 @@ Updating the main block to handle the dictionary return type:
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/process_rdp_data.py</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/process_rdp_data.py</summary>
 
 </details>
 
@@ -1137,7 +1137,7 @@ Testing the refactored function:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && python -c "
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && python -c "
 from process_rdp_data import process_rdp_data
 import pandas as pd
 
@@ -1153,7 +1153,7 @@ if result:
 "</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && python -c "
+cd /home/jedick/github/microbial-pH-predictions && python -c "
 from process_rdp_data import process_rdp_data
 import pandas as pd
 
@@ -1189,7 +1189,7 @@ Testing the directory processing function:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && python -c "
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && python -c "
 from process_rdp_data import process_rdp_directory
 from pathlib import Path
 import shutil
@@ -1219,7 +1219,7 @@ print('\n✓ All tests passed!')
 "</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && python -c "
+cd /home/jedick/github/microbial-pH-predictions && python -c "
 from process_rdp_data import process_rdp_directory
 from pathlib import Path
 import shutil
@@ -1296,7 +1296,7 @@ Verifying the CSV output can be read back correctly:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && python -c "
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && python -c "
 from process_rdp_data import process_rdp_directory
 from pathlib import Path
 import pandas as pd
@@ -1329,7 +1329,7 @@ print('\n✓ CSV read/write works correctly!')
 "</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && python -c "
+cd /home/jedick/github/microbial-pH-predictions && python -c "
 from process_rdp_data import process_rdp_directory
 from pathlib import Path
 import pandas as pd
@@ -1406,7 +1406,7 @@ Checking if the value mismatch is due to floating-point precision:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && python -c "
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && python -c "
 import pandas as pd
 
 # Read the test CSV if it exists
@@ -1420,7 +1420,7 @@ except:
 "</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && python -c "
+cd /home/jedick/github/microbial-pH-predictions && python -c "
 import pandas as pd
 
 # Read the test CSV if it exists
@@ -1488,7 +1488,7 @@ Adding a taxonomic level filter option to `process_rdp_directory`. Reviewing the
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/process_rdp_data.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/process_rdp_data.py</summary>
 
 </details>
 </tool-use>
@@ -1502,7 +1502,7 @@ Reading the function signature:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/process_rdp_data.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/process_rdp_data.py</summary>
 
 </details>
 </tool-use>
@@ -1516,7 +1516,7 @@ Reading the function signature:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/process_rdp_data.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/process_rdp_data.py</summary>
 
 </details>
 </tool-use>
@@ -1531,7 +1531,7 @@ Adding the taxonomic level filter option:
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/process_rdp_data.py</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/process_rdp_data.py</summary>
 
 </details>
 
@@ -1547,7 +1547,7 @@ Updating the function to filter by taxonomic level and adjust the output filenam
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/process_rdp_data.py</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/process_rdp_data.py</summary>
 
 </details>
 
@@ -1563,7 +1563,7 @@ Updating the function to filter by taxonomic level and adjust the output filenam
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/process_rdp_data.py</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/process_rdp_data.py</summary>
 
 </details>
 
@@ -1578,7 +1578,7 @@ Updating the command-line interface to accept the taxonomic level parameter:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/process_rdp_data.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/process_rdp_data.py</summary>
 
 </details>
 </tool-use>
@@ -1593,7 +1593,7 @@ Updating the command-line interface to accept the taxonomic level parameter:
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/process_rdp_data.py</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/process_rdp_data.py</summary>
 
 </details>
 
@@ -1609,7 +1609,7 @@ Updating the command-line interface to accept the taxonomic level parameter:
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/process_rdp_data.py</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/process_rdp_data.py</summary>
 
 </details>
 
@@ -1624,7 +1624,7 @@ Testing the taxonomic level filtering:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && python -c "
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && python -c "
 from process_rdp_data import process_rdp_directory
 from pathlib import Path
 import shutil
@@ -1657,7 +1657,7 @@ print('\n✓ All tests passed!')
 "</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && python -c "
+cd /home/jedick/github/microbial-pH-predictions && python -c "
 from process_rdp_data import process_rdp_directory
 from pathlib import Path
 import shutil
@@ -1758,10 +1758,10 @@ Testing the command-line interface:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && python process_rdp_data.py 2>&1 | head -15</summary>
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && python process_rdp_data.py 2>&1 | head -15</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && python process_rdp_data.py 2>&1 | head -15
+cd /home/jedick/github/microbial-pH-predictions && python process_rdp_data.py 2>&1 | head -15
 ```
 
 ```
@@ -1790,7 +1790,7 @@ Testing the command-line interface with a taxonomic level:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && python -c "
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && python -c "
 from process_rdp_data import process_rdp_directory
 from pathlib import Path
 import shutil
@@ -1816,7 +1816,7 @@ print('✓ Command-line interface test passed!')
 "</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && python -c "
+cd /home/jedick/github/microbial-pH-predictions && python -c "
 from process_rdp_data import process_rdp_directory
 from pathlib import Path
 import shutil
@@ -1935,7 +1935,7 @@ Converting counts to integers early in processing. Checking where counts are rea
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/process_rdp_data.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/process_rdp_data.py</summary>
 
 </details>
 </tool-use>
@@ -1950,7 +1950,7 @@ Converting counts to integers when reading from the source data:
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/process_rdp_data.py</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/process_rdp_data.py</summary>
 
 </details>
 
@@ -1965,7 +1965,7 @@ Ensuring the DataFrame uses integer dtype when created. Checking the DataFrame c
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/process_rdp_data.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/process_rdp_data.py</summary>
 
 </details>
 </tool-use>
@@ -1979,7 +1979,7 @@ Checking the DataFrame creation and ensuring integer dtype:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/process_rdp_data.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/process_rdp_data.py</summary>
 
 </details>
 </tool-use>
@@ -1994,7 +1994,7 @@ Converting numeric columns to integers after DataFrame creation:
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/process_rdp_data.py</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/process_rdp_data.py</summary>
 
 </details>
 
@@ -2010,7 +2010,7 @@ Filling NaN with 0 and using regular int64, since 0 is a valid count:
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/process_rdp_data.py</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/process_rdp_data.py</summary>
 
 </details>
 
@@ -2025,7 +2025,7 @@ Ensuring integer types are preserved when combining DataFrames:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/process_rdp_data.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/process_rdp_data.py</summary>
 
 </details>
 </tool-use>
@@ -2040,7 +2040,7 @@ Ensuring integer types after combining DataFrames:
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/process_rdp_data.py</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/process_rdp_data.py</summary>
 
 </details>
 
@@ -2055,7 +2055,7 @@ Checking the single-file processing in the main block:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/process_rdp_data.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/process_rdp_data.py</summary>
 
 </details>
 </tool-use>
@@ -2070,7 +2070,7 @@ Ensuring integer types in single-file processing:
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/process_rdp_data.py</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/process_rdp_data.py</summary>
 
 </details>
 
@@ -2085,7 +2085,7 @@ Testing that counts are integers:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && python -c "
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && python -c "
 from process_rdp_data import process_rdp_data, process_rdp_directory
 from pathlib import Path
 import shutil
@@ -2131,7 +2131,7 @@ print('\n✓ Integer conversion test passed!')
 "</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && python -c "
+cd /home/jedick/github/microbial-pH-predictions && python -c "
 from process_rdp_data import process_rdp_data, process_rdp_directory
 from pathlib import Path
 import shutil
@@ -2278,7 +2278,7 @@ Reading the README to add a usage section:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/README.md</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/README.md</summary>
 
 </details>
 </tool-use>
@@ -2293,7 +2293,7 @@ Adding a usage section to the README:
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/README.md</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/README.md</summary>
 
 </details>
 

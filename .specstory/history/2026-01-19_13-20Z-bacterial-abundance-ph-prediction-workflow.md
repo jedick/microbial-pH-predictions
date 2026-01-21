@@ -19,7 +19,7 @@ Examining the data files to understand their structure.
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/data/sample_data.csv</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/data/sample_data.csv</summary>
 
 </details>
 </tool-use>
@@ -27,7 +27,7 @@ Examining the data files to understand their structure.
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/data/bacteria_phylum_counts.csv</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/data/bacteria_phylum_counts.csv</summary>
 
 </details>
 </tool-use>
@@ -43,7 +43,7 @@ Parameters:
 
 ```json
 {
-  "targetDirectory": "/home/jedick/github/ML-predictions-of-pH"
+  "targetDirectory": "/home/jedick/github/microbial-pH-predictions"
 }
 ```
 Result:
@@ -51,13 +51,13 @@ Result:
 ```json
 {
   "directoryTreeRoot": {
-    "absPath": "/home/jedick/github/ML-predictions-of-pH",
+    "absPath": "/home/jedick/github/microbial-pH-predictions",
     "childrenDirs": [
       {
-        "absPath": "/home/jedick/github/ML-predictions-of-pH/.cursor",
+        "absPath": "/home/jedick/github/microbial-pH-predictions/.cursor",
         "childrenDirs": [
           {
-            "absPath": "/home/jedick/github/ML-predictions-of-pH/.cursor/rules",
+            "absPath": "/home/jedick/github/microbial-pH-predictions/.cursor/rules",
             "childrenFiles": [
               {
                 "name": "commit-rules.mdc"
@@ -72,10 +72,10 @@ Result:
         "childrenWereProcessed": true
       },
       {
-        "absPath": "/home/jedick/github/ML-predictions-of-pH/.specstory",
+        "absPath": "/home/jedick/github/microbial-pH-predictions/.specstory",
         "childrenDirs": [
           {
-            "absPath": "/home/jedick/github/ML-predictions-of-pH/.specstory/history",
+            "absPath": "/home/jedick/github/microbial-pH-predictions/.specstory/history",
             "childrenFiles": [
               {
                 "name": "2026-01-19_04-20Z-new-project-setup-and-cursor-rules.md"
@@ -157,7 +157,7 @@ Directory: **undefined** (0 file)
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/process_rdp_data.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/process_rdp_data.py</summary>
 
 </details>
 </tool-use>
@@ -172,7 +172,7 @@ Creating the ML workflow script with the required functionality:
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 
@@ -187,10 +187,10 @@ Testing the script to verify it works correctly:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && python predict_ph.py --model linear --help</summary>
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && python predict_ph.py --model linear --help</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && python predict_ph.py --model linear --help
+cd /home/jedick/github/microbial-pH-predictions && python predict_ph.py --model linear --help
 ```
 
 ```
@@ -231,10 +231,10 @@ Verifying column names and running a quick test:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && head -1 data/sample_data.csv | tr ',' '\n' | nl</summary>
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && head -1 data/sample_data.csv | tr ',' '\n' | nl</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && head -1 data/sample_data.csv | tr ',' '\n' | nl
+cd /home/jedick/github/microbial-pH-predictions && head -1 data/sample_data.csv | tr ',' '\n' | nl
 ```
 
 ```
@@ -259,10 +259,10 @@ cd /home/jedick/github/ML-predictions-of-pH && head -1 data/sample_data.csv | tr
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && head -1 data/bacteria_phylum_counts.csv | tr ',' '\n' | head -5 | nl</summary>
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && head -1 data/bacteria_phylum_counts.csv | tr ',' '\n' | head -5 | nl</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && head -1 data/bacteria_phylum_counts.csv | tr ',' '\n' | head -5 | nl
+cd /home/jedick/github/microbial-pH-predictions && head -1 data/bacteria_phylum_counts.csv | tr ',' '\n' | head -5 | nl
 ```
 
 ```
@@ -285,10 +285,10 @@ Running a quick test with the linear model:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && python predict_ph.py --model linear 2>&1 | head -50</summary>
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && python predict_ph.py --model linear 2>&1 | head -50</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && python predict_ph.py --model linear 2>&1 | head -50
+cd /home/jedick/github/microbial-pH-predictions && python predict_ph.py --model linear 2>&1 | head -50
 ```
 
 ```
@@ -356,7 +356,7 @@ The script runs, but the test performance is poor. Checking for potential issues
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/results/linear_train_predictions.csv</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/results/linear_train_predictions.csv</summary>
 
 </details>
 </tool-use>
@@ -364,7 +364,7 @@ The script runs, but the test performance is poor. Checking for potential issues
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/results/linear_summary.txt</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/results/linear_summary.txt</summary>
 
 </details>
 </tool-use>
@@ -378,10 +378,10 @@ Output files are created correctly. Testing another model to verify the workflow
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && python predict_ph.py --model rf 2>&1 | tail -30</summary>
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && python predict_ph.py --model rf 2>&1 | tail -30</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && python predict_ph.py --model rf 2>&1 | tail -30
+cd /home/jedick/github/microbial-pH-predictions && python predict_ph.py --model rf 2>&1 | tail -30
 ```
 
 ```
@@ -437,7 +437,7 @@ Parameters:
 
 ```json
 {
-  "targetDirectory": "/home/jedick/github/ML-predictions-of-pH/results"
+  "targetDirectory": "/home/jedick/github/microbial-pH-predictions/results"
 }
 ```
 Result:
@@ -445,7 +445,7 @@ Result:
 ```json
 {
   "directoryTreeRoot": {
-    "absPath": "/home/jedick/github/ML-predictions-of-pH/results",
+    "absPath": "/home/jedick/github/microbial-pH-predictions/results",
     "childrenFiles": [
       {
         "name": "linear_summary.txt"
@@ -479,10 +479,10 @@ Status: **completed**
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && python predict_ph.py --model knn 2>&1 | grep -A 10 "Model:"</summary>
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && python predict_ph.py --model knn 2>&1 | grep -A 10 "Model:"</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && python predict_ph.py --model knn 2>&1 | grep -A 10 "Model:"
+cd /home/jedick/github/microbial-pH-predictions && python predict_ph.py --model knn 2>&1 | grep -A 10 "Model:"
 ```
 
 ```
@@ -511,10 +511,10 @@ Testing the last model (HistGradientBoosting):
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && python predict_ph.py --model hgb 2>&1 | grep -A 15 "Model:"</summary>
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && python predict_ph.py --model hgb 2>&1 | grep -A 15 "Model:"</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && python predict_ph.py --model hgb 2>&1 | grep -A 15 "Model:"
+cd /home/jedick/github/microbial-pH-predictions && python predict_ph.py --model hgb 2>&1 | grep -A 15 "Model:"
 ```
 
 ```
@@ -550,7 +550,7 @@ Parameters:
 
 ```json
 {
-  "targetDirectory": "/home/jedick/github/ML-predictions-of-pH/results"
+  "targetDirectory": "/home/jedick/github/microbial-pH-predictions/results"
 }
 ```
 Result:
@@ -558,7 +558,7 @@ Result:
 ```json
 {
   "directoryTreeRoot": {
-    "absPath": "/home/jedick/github/ML-predictions-of-pH/results",
+    "absPath": "/home/jedick/github/microbial-pH-predictions/results",
     "childrenFiles": [
       {
         "name": "knn_summary.txt"
@@ -607,10 +607,10 @@ Verifying all output files were created:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && ls -lh results/*.csv results/*.txt | wc -l</summary>
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && ls -lh results/*.csv results/*.txt | wc -l</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && ls -lh results/*.csv results/*.txt | wc -l
+cd /home/jedick/github/microbial-pH-predictions && ls -lh results/*.csv results/*.txt | wc -l
 ```
 
 ```
@@ -623,7 +623,7 @@ cd /home/jedick/github/ML-predictions-of-pH && ls -lh results/*.csv results/*.tx
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/results/hgb_test_predictions.csv</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/results/hgb_test_predictions.csv</summary>
 
 </details>
 </tool-use>
@@ -698,7 +698,7 @@ Updating the script to save only test set predictions, include study_name and sa
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 </tool-use>
@@ -713,7 +713,7 @@ Updating the script with the requested changes:
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 
@@ -723,7 +723,7 @@ Updating the script with the requested changes:
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 
@@ -733,7 +733,7 @@ Updating the script with the requested changes:
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 
@@ -743,7 +743,7 @@ Updating the script with the requested changes:
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 
@@ -758,10 +758,10 @@ Checking if the compressed file exists, then testing the updated script:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && ls -lh data/*.xz 2>&1 | head -5</summary>
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && ls -lh data/*.xz 2>&1 | head -5</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && ls -lh data/*.xz 2>&1 | head -5
+cd /home/jedick/github/microbial-pH-predictions && ls -lh data/*.xz 2>&1 | head -5
 ```
 
 ```
@@ -774,7 +774,7 @@ cd /home/jedick/github/ML-predictions-of-pH && ls -lh data/*.xz 2>&1 | head -5
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 </tool-use>
@@ -788,10 +788,10 @@ Testing the updated script with the compressed file:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && python predict_ph.py --model linear 2>&1 | tail -25</summary>
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && python predict_ph.py --model linear 2>&1 | tail -25</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && python predict_ph.py --model linear 2>&1 | tail -25
+cd /home/jedick/github/microbial-pH-predictions && python predict_ph.py --model linear 2>&1 | tail -25
 ```
 
 ```
@@ -834,7 +834,7 @@ Verifying the output file format:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/results/linear_test_predictions.csv</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/results/linear_test_predictions.csv</summary>
 
 </details>
 </tool-use>
@@ -842,10 +842,10 @@ Verifying the output file format:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && head -1 results/linear_test_predictions.csv && tail -5 results/linear_test_predictions.csv</summary>
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && head -1 results/linear_test_predictions.csv && tail -5 results/linear_test_predictions.csv</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && head -1 results/linear_test_predictions.csv && tail -5 results/linear_test_predictions.csv
+cd /home/jedick/github/microbial-pH-predictions && head -1 results/linear_test_predictions.csv && tail -5 results/linear_test_predictions.csv
 ```
 
 ```
@@ -869,10 +869,10 @@ Verifying rounding and confirming train predictions are no longer saved:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && ls -1 results/*train* 2>&1</summary>
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && ls -1 results/*train* 2>&1</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && ls -1 results/*train* 2>&1
+cd /home/jedick/github/microbial-pH-predictions && ls -1 results/*train* 2>&1
 ```
 
 ```
@@ -888,10 +888,10 @@ results/rf_train_predictions.csv
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && python -c "import pandas as pd; df = pd.read_csv('results/linear_test_predictions.csv'); print('Sample values:'); print(df[['predicted_pH', 'residual']].head(10)); print('\nChecking decimal places:'); print('Max decimal places in predicted_pH:', df['predicted_pH'].apply(lambda x: len(str(x).split('.')[-1]) if '.' in str(x) else 0).max()); print('Max decimal places in residual:', df['residual'].apply(lambda x: len(str(x).split('.')[-1]) if '.' in str(x) else 0).max())"</summary>
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && python -c "import pandas as pd; df = pd.read_csv('results/linear_test_predictions.csv'); print('Sample values:'); print(df[['predicted_pH', 'residual']].head(10)); print('\nChecking decimal places:'); print('Max decimal places in predicted_pH:', df['predicted_pH'].apply(lambda x: len(str(x).split('.')[-1]) if '.' in str(x) else 0).max()); print('Max decimal places in residual:', df['residual'].apply(lambda x: len(str(x).split('.')[-1]) if '.' in str(x) else 0).max())"</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && python -c "import pandas as pd; df = pd.read_csv('results/linear_test_predictions.csv'); print('Sample values:'); print(df[['predicted_pH', 'residual']].head(10)); print('\nChecking decimal places:'); print('Max decimal places in predicted_pH:', df['predicted_pH'].apply(lambda x: len(str(x).split('.')[-1]) if '.' in str(x) else 0).max()); print('Max decimal places in residual:', df['residual'].apply(lambda x: len(str(x).split('.')[-1]) if '.' in str(x) else 0).max())"
+cd /home/jedick/github/microbial-pH-predictions && python -c "import pandas as pd; df = pd.read_csv('results/linear_test_predictions.csv'); print('Sample values:'); print(df[['predicted_pH', 'residual']].head(10)); print('\nChecking decimal places:'); print('Max decimal places in predicted_pH:', df['predicted_pH'].apply(lambda x: len(str(x).split('.')[-1]) if '.' in str(x) else 0).max()); print('Max decimal places in residual:', df['residual'].apply(lambda x: len(str(x).split('.')[-1]) if '.' in str(x) else 0).max())"
 ```
 
 ```
@@ -925,10 +925,10 @@ Old train files remain from previous runs; the script no longer creates them. Te
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && python predict_ph.py --model rf 2>&1 | grep -E "(Loading|Saved|Model:|Test RMSE|Test R²)" | head -10</summary>
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && python predict_ph.py --model rf 2>&1 | grep -E "(Loading|Saved|Model:|Test RMSE|Test R²)" | head -10</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && python predict_ph.py --model rf 2>&1 | grep -E "(Loading|Saved|Model:|Test RMSE|Test R²)" | head -10
+cd /home/jedick/github/microbial-pH-predictions && python predict_ph.py --model rf 2>&1 | grep -E "(Loading|Saved|Model:|Test RMSE|Test R²)" | head -10
 ```
 
 ```
@@ -947,7 +947,7 @@ Saved model summary to results/rf_summary.txt
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/results/rf_test_predictions.csv</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/results/rf_test_predictions.csv</summary>
 
 </details>
 </tool-use>
@@ -961,10 +961,10 @@ Checking the file that was just created:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && head -5 results/rf_test_predictions.csv && echo "---" && wc -l results/rf_test_predictions.csv</summary>
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && head -5 results/rf_test_predictions.csv && echo "---" && wc -l results/rf_test_predictions.csv</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && head -5 results/rf_test_predictions.csv && echo "---" && wc -l results/rf_test_predictions.csv
+cd /home/jedick/github/microbial-pH-predictions && head -5 results/rf_test_predictions.csv && echo "---" && wc -l results/rf_test_predictions.csv
 ```
 
 ```
@@ -1024,7 +1024,7 @@ Adding GridSearchCV with small test grids and timing. Reviewing the script struc
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 </tool-use>
@@ -1039,7 +1039,7 @@ Adding GridSearchCV with test and full parameter grids:
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 
@@ -1049,7 +1049,7 @@ Adding GridSearchCV with test and full parameter grids:
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 
@@ -1059,7 +1059,7 @@ Adding GridSearchCV with test and full parameter grids:
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 
@@ -1069,7 +1069,7 @@ Adding GridSearchCV with test and full parameter grids:
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 
@@ -1088,7 +1088,7 @@ Reading the file to check its current state:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 </tool-use>
@@ -1112,7 +1112,7 @@ Reading the exact section to match it precisely:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 </tool-use>
@@ -1141,7 +1141,7 @@ The string to replace was not found in the file.
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 
@@ -1156,7 +1156,7 @@ Replacing the print statements:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 </tool-use>
@@ -1170,7 +1170,7 @@ Checking the grid search section for the itertools import:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 </tool-use>
@@ -1184,10 +1184,10 @@ Testing the script with grid search:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && python predict_ph.py --model knn --grid-search test 2>&1 | tail -40</summary>
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && python predict_ph.py --model knn --grid-search test 2>&1 | tail -40</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && python predict_ph.py --model knn --grid-search test 2>&1 | tail -40
+cd /home/jedick/github/microbial-pH-predictions && python predict_ph.py --model knn --grid-search test 2>&1 | tail -40
 ```
 
 ```
@@ -1245,7 +1245,7 @@ Checking the summary file for grid search information:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/results/knn_summary.txt</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/results/knn_summary.txt</summary>
 
 </details>
 </tool-use>
@@ -1253,10 +1253,10 @@ Checking the summary file for grid search information:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && python predict_ph.py --model rf --grid-search test 2>&1 | grep -E "(GridSearchCV|Best|Time|combinations)" | head -10</summary>
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && python predict_ph.py --model rf --grid-search test 2>&1 | grep -E "(GridSearchCV|Best|Time|combinations)" | head -10</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && python predict_ph.py --model rf --grid-search test 2>&1 | grep -E "(GridSearchCV|Best|Time|combinations)" | head -10
+cd /home/jedick/github/microbial-pH-predictions && python predict_ph.py --model rf --grid-search test 2>&1 | grep -E "(GridSearchCV|Best|Time|combinations)" | head -10
 ```
 
 ```
@@ -1278,7 +1278,7 @@ The summary file is missing grid search information. Checking the code and fixin
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 </tool-use>
@@ -1302,7 +1302,7 @@ Trying a different approach: reading the file and rewriting the summary section:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 </tool-use>
@@ -1311,7 +1311,7 @@ Trying a different approach: reading the file and rewriting the summary section:
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 
@@ -1330,7 +1330,7 @@ Checking the current state and fixing the R² character:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 </tool-use>
@@ -1348,10 +1348,10 @@ The string to replace was not found in the file.
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && python predict_ph.py --model knn --grid-search test 2>&1 | tail -15</summary>
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && python predict_ph.py --model knn --grid-search test 2>&1 | tail -15</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && python predict_ph.py --model knn --grid-search test 2>&1 | tail -15
+cd /home/jedick/github/microbial-pH-predictions && python predict_ph.py --model knn --grid-search test 2>&1 | tail -15
 ```
 
 ```
@@ -1384,7 +1384,7 @@ Checking the summary file for grid search information:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/results/knn_summary.txt</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/results/knn_summary.txt</summary>
 
 </details>
 </tool-use>
@@ -1392,10 +1392,10 @@ Checking the summary file for grid search information:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && python predict_ph.py --model hgb --grid-search test 2>&1 | grep -A 5 "Grid search completed"</summary>
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && python predict_ph.py --model hgb --grid-search test 2>&1 | grep -A 5 "Grid search completed"</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && python predict_ph.py --model hgb --grid-search test 2>&1 | grep -A 5 "Grid search completed"
+cd /home/jedick/github/microbial-pH-predictions && python predict_ph.py --model hgb --grid-search test 2>&1 | grep -A 5 "Grid search completed"
 ```
 
 ```
@@ -1419,10 +1419,10 @@ Grid search is working. Verifying the help and testing with the 'none' option:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && python predict_ph.py --help | grep -A 3 "grid-search"</summary>
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && python predict_ph.py --help | grep -A 3 "grid-search"</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && python predict_ph.py --help | grep -A 3 "grid-search"
+cd /home/jedick/github/microbial-pH-predictions && python predict_ph.py --help | grep -A 3 "grid-search"
 ```
 
 ```
@@ -1443,7 +1443,7 @@ Predict pH from bacterial abundances using regression models
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/results/hgb_summary.txt</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/results/hgb_summary.txt</summary>
 
 </details>
 </tool-use>
@@ -1544,7 +1544,7 @@ Adding a tqdm progress bar for grid search. Implementing a solution that works w
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 </tool-use>
@@ -1552,7 +1552,7 @@ Adding a tqdm progress bar for grid search. Implementing a solution that works w
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 </tool-use>
@@ -1567,7 +1567,7 @@ Replacing GridSearchCV with a manual implementation using ParameterGrid, cross_v
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 
@@ -1577,7 +1577,7 @@ Replacing GridSearchCV with a manual implementation using ParameterGrid, cross_v
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 
@@ -1592,10 +1592,10 @@ Testing the implementation with and without tqdm:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && python -c "from tqdm import tqdm; print('tqdm available')" 2>&1</summary>
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && python -c "from tqdm import tqdm; print('tqdm available')" 2>&1</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && python -c "from tqdm import tqdm; print('tqdm available')" 2>&1
+cd /home/jedick/github/microbial-pH-predictions && python -c "from tqdm import tqdm; print('tqdm available')" 2>&1
 ```
 
 ```
@@ -1608,10 +1608,10 @@ tqdm available
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && python predict_ph.py --model knn --grid-search test 2>&1 | tail -25</summary>
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && python predict_ph.py --model knn --grid-search test 2>&1 | tail -25</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && python predict_ph.py --model knn --grid-search test 2>&1 | tail -25
+cd /home/jedick/github/microbial-pH-predictions && python predict_ph.py --model knn --grid-search test 2>&1 | tail -25
 ```
 
 ```
@@ -1654,10 +1654,10 @@ Running without tail to see the progress bar:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && python predict_ph.py --model knn --grid-search test 2>&1 | head -30</summary>
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && python predict_ph.py --model knn --grid-search test 2>&1 | head -30</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && python predict_ph.py --model knn --grid-search test 2>&1 | head -30
+cd /home/jedick/github/microbial-pH-predictions && python predict_ph.py --model knn --grid-search test 2>&1 | head -30
 ```
 
 ```
@@ -1699,10 +1699,10 @@ Name: count, dtype: int64
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && python predict_ph.py --model rf --grid-search test 2>&1 | grep -E "(Grid|Progress|Best|combinations)" | head -10</summary>
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && python predict_ph.py --model rf --grid-search test 2>&1 | grep -E "(Grid|Progress|Best|combinations)" | head -10</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && python predict_ph.py --model rf --grid-search test 2>&1 | grep -E "(Grid|Progress|Best|combinations)" | head -10
+cd /home/jedick/github/microbial-pH-predictions && python predict_ph.py --model rf --grid-search test 2>&1 | grep -E "(Grid|Progress|Best|combinations)" | head -10
 ```
 
 ```
@@ -1726,7 +1726,7 @@ Progress bar is working. Verifying the summary file and testing with a longer-ru
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/results/rf_summary.txt</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/results/rf_summary.txt</summary>
 
 </details>
 </tool-use>
@@ -1734,10 +1734,10 @@ Progress bar is working. Verifying the summary file and testing with a longer-ru
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && timeout 30 python predict_ph.py --model hgb --grid-search test 2>&1 | grep -E "(Grid|Progress|Best|Note)" | head -8</summary>
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && timeout 30 python predict_ph.py --model hgb --grid-search test 2>&1 | grep -E "(Grid|Progress|Best|Note)" | head -8</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && timeout 30 python predict_ph.py --model hgb --grid-search test 2>&1 | grep -E "(Grid|Progress|Best|Note)" | head -8
+cd /home/jedick/github/microbial-pH-predictions && timeout 30 python predict_ph.py --model hgb --grid-search test 2>&1 | grep -E "(Grid|Progress|Best|Note)" | head -8
 ```
 
 ```
@@ -1756,7 +1756,7 @@ Progress bar is working. Verifying the fallback when tqdm is unavailable and che
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 </tool-use>
@@ -1764,7 +1764,7 @@ Progress bar is working. Verifying the fallback when tqdm is unavailable and che
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && python -c "
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && python -c "
 import sys
 sys.path.insert(0, '.')
 # Temporarily remove tqdm from imports
@@ -1782,7 +1782,7 @@ exec(open('predict_ph.py').read().replace('from tqdm import tqdm', '# from tqdm 
 " 2>&1 | head -5</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && python -c "
+cd /home/jedick/github/microbial-pH-predictions && python -c "
 import sys
 sys.path.insert(0, '.')
 # Temporarily remove tqdm from imports
@@ -1820,7 +1820,7 @@ Verifying the implementation works correctly:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 </tool-use>
@@ -1828,10 +1828,10 @@ Verifying the implementation works correctly:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && python predict_ph.py --model knn --grid-search test --cv-folds 3 2>&1 | grep -E "(Grid|Progress|Best|Time)" | head -6</summary>
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && python predict_ph.py --model knn --grid-search test --cv-folds 3 2>&1 | grep -E "(Grid|Progress|Best|Time)" | head -6</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && python predict_ph.py --model knn --grid-search test --cv-folds 3 2>&1 | grep -E "(Grid|Progress|Best|Time)" | head -6
+cd /home/jedick/github/microbial-pH-predictions && python predict_ph.py --model knn --grid-search test --cv-folds 3 2>&1 | grep -E "(Grid|Progress|Best|Time)" | head -6
 ```
 
 ```
@@ -1908,7 +1908,7 @@ Parameters:
 ```json
 {
   "pattern": "R²|R",
-  "path": "/home/jedick/github/ML-predictions-of-pH/predict_ph.py",
+  "path": "/home/jedick/github/microbial-pH-predictions/predict_ph.py",
   "caseInsensitive": false
 }
 ```
@@ -1918,10 +1918,10 @@ Result:
 {
   "success": {
     "pattern": "R²|R",
-    "path": "/home/jedick/github/ML-predictions-of-pH/predict_ph.py",
+    "path": "/home/jedick/github/microbial-pH-predictions/predict_ph.py",
     "outputMode": "content",
     "workspaceResults": {
-      "/home/jedick/github/ML-predictions-of-pH": {
+      "/home/jedick/github/microbial-pH-predictions": {
         "content": {
           "matches": [
             {
@@ -2059,7 +2059,7 @@ Status: **completed**
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 </tool-use>
@@ -2073,7 +2073,7 @@ Replacing all occurrences of the R² character with "R-squared":
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 </tool-use>
@@ -2081,7 +2081,7 @@ Replacing all occurrences of the R² character with "R-squared":
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 </tool-use>
@@ -2103,7 +2103,7 @@ Trying a different approach to replace the character:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && python3 -c "
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && python3 -c "
 import re
 with open('predict_ph.py', 'rb') as f:
     content = f.read()
@@ -2119,7 +2119,7 @@ print('Replaced R² with R-squared')
 "</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && python3 -c "
+cd /home/jedick/github/microbial-pH-predictions && python3 -c "
 import re
 with open('predict_ph.py', 'rb') as f:
     content = f.read()
@@ -2154,7 +2154,7 @@ Parameters:
 ```json
 {
   "pattern": "R-squared|R",
-  "path": "/home/jedick/github/ML-predictions-of-pH/predict_ph.py",
+  "path": "/home/jedick/github/microbial-pH-predictions/predict_ph.py",
   "caseInsensitive": true
 }
 ```
@@ -2164,10 +2164,10 @@ Result:
 {
   "success": {
     "pattern": "R-squared|R",
-    "path": "/home/jedick/github/ML-predictions-of-pH/predict_ph.py",
+    "path": "/home/jedick/github/microbial-pH-predictions/predict_ph.py",
     "outputMode": "content",
     "workspaceResults": {
-      "/home/jedick/github/ML-predictions-of-pH": {
+      "/home/jedick/github/microbial-pH-predictions": {
         "content": {
           "matches": [
             {
@@ -3439,7 +3439,7 @@ Checking and fixing the remaining occurrences:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 </tool-use>
@@ -3447,7 +3447,7 @@ Checking and fixing the remaining occurrences:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 </tool-use>
@@ -3455,10 +3455,10 @@ Checking and fixing the remaining occurrences:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && sed -i 's/Train R[^:]*:/Train R-squared:/g' predict_ph.py && sed -i 's/Test R[^:]*:/Test R-squared:/g' predict_ph.py && echo "Replaced R² with R-squared using sed"</summary>
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && sed -i 's/Train R[^:]*:/Train R-squared:/g' predict_ph.py && sed -i 's/Test R[^:]*:/Test R-squared:/g' predict_ph.py && echo "Replaced R² with R-squared using sed"</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && sed -i 's/Train R[^:]*:/Train R-squared:/g' predict_ph.py && sed -i 's/Test R[^:]*:/Test R-squared:/g' predict_ph.py && echo "Replaced R² with R-squared using sed"
+cd /home/jedick/github/microbial-pH-predictions && sed -i 's/Train R[^:]*:/Train R-squared:/g' predict_ph.py && sed -i 's/Test R[^:]*:/Test R-squared:/g' predict_ph.py && echo "Replaced R² with R-squared using sed"
 ```
 
 ```
@@ -3480,7 +3480,7 @@ Parameters:
 ```json
 {
   "pattern": "R-squared",
-  "path": "/home/jedick/github/ML-predictions-of-pH/predict_ph.py",
+  "path": "/home/jedick/github/microbial-pH-predictions/predict_ph.py",
   "caseInsensitive": false
 }
 ```
@@ -3490,10 +3490,10 @@ Result:
 {
   "success": {
     "pattern": "R-squared",
-    "path": "/home/jedick/github/ML-predictions-of-pH/predict_ph.py",
+    "path": "/home/jedick/github/microbial-pH-predictions/predict_ph.py",
     "outputMode": "content",
     "workspaceResults": {
-      "/home/jedick/github/ML-predictions-of-pH": {
+      "/home/jedick/github/microbial-pH-predictions": {
         "content": {
           "matches": [
             {
@@ -3613,10 +3613,10 @@ The sed command was too aggressive. Reverting incorrect replacements and fixing 
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && git checkout predict_ph.py 2>&1 || echo "Not a git repo, will fix manually"</summary>
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && git checkout predict_ph.py 2>&1 || echo "Not a git repo, will fix manually"</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && git checkout predict_ph.py 2>&1 || echo "Not a git repo, will fix manually"
+cd /home/jedick/github/microbial-pH-predictions && git checkout predict_ph.py 2>&1 || echo "Not a git repo, will fix manually"
 ```
 
 ```
@@ -3630,7 +3630,7 @@ Not a git repo, will fix manually
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 </tool-use>
@@ -3638,7 +3638,7 @@ Not a git repo, will fix manually
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 </tool-use>
@@ -3652,7 +3652,7 @@ Fixing incorrect replacements. Reading the file to identify all issues:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 </tool-use>
@@ -3660,7 +3660,7 @@ Fixing incorrect replacements. Reading the file to identify all issues:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 </tool-use>
@@ -3668,7 +3668,7 @@ Fixing incorrect replacements. Reading the file to identify all issues:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 </tool-use>
@@ -3676,7 +3676,7 @@ Fixing incorrect replacements. Reading the file to identify all issues:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 </tool-use>
@@ -3684,7 +3684,7 @@ Fixing incorrect replacements. Reading the file to identify all issues:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 </tool-use>
@@ -3692,7 +3692,7 @@ Fixing incorrect replacements. Reading the file to identify all issues:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 </tool-use>
@@ -3700,7 +3700,7 @@ Fixing incorrect replacements. Reading the file to identify all issues:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 </tool-use>
@@ -3715,7 +3715,7 @@ Fixing incorrect replacements:
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 
@@ -3725,7 +3725,7 @@ Fixing incorrect replacements:
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 
@@ -3735,7 +3735,7 @@ Fixing incorrect replacements:
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 
@@ -3753,7 +3753,7 @@ Parameters:
 ```json
 {
   "pattern": "R-squared",
-  "path": "/home/jedick/github/ML-predictions-of-pH/predict_ph.py",
+  "path": "/home/jedick/github/microbial-pH-predictions/predict_ph.py",
   "caseInsensitive": false
 }
 ```
@@ -3763,10 +3763,10 @@ Result:
 {
   "success": {
     "pattern": "R-squared",
-    "path": "/home/jedick/github/ML-predictions-of-pH/predict_ph.py",
+    "path": "/home/jedick/github/microbial-pH-predictions/predict_ph.py",
     "outputMode": "content",
     "workspaceResults": {
-      "/home/jedick/github/ML-predictions-of-pH": {
+      "/home/jedick/github/microbial-pH-predictions": {
         "content": {
           "matches": [
             {
@@ -3865,7 +3865,7 @@ Status: **completed**
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 
@@ -3875,7 +3875,7 @@ Status: **completed**
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 
@@ -3885,7 +3885,7 @@ Status: **completed**
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 
@@ -3895,7 +3895,7 @@ Status: **completed**
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 
@@ -3905,7 +3905,7 @@ Status: **completed**
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 
@@ -3915,7 +3915,7 @@ Status: **completed**
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 
@@ -3930,7 +3930,7 @@ Checking and fixing remaining issues:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 </tool-use>
@@ -3938,7 +3938,7 @@ Checking and fixing remaining issues:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 </tool-use>
@@ -3946,7 +3946,7 @@ Checking and fixing remaining issues:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 </tool-use>
@@ -3954,7 +3954,7 @@ Checking and fixing remaining issues:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 </tool-use>
@@ -3962,7 +3962,7 @@ Checking and fixing remaining issues:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 </tool-use>
@@ -3970,7 +3970,7 @@ Checking and fixing remaining issues:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 </tool-use>
@@ -3978,7 +3978,7 @@ Checking and fixing remaining issues:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 </tool-use>
@@ -3993,7 +3993,7 @@ Fixing the remaining "Returns" issues:
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 
@@ -4003,7 +4003,7 @@ Fixing the remaining "Returns" issues:
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 
@@ -4012,10 +4012,10 @@ Fixing the remaining "Returns" issues:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && python predict_ph.py --model linear 2>&1 | grep -E "(R-squared|RMSE)" | head -5</summary>
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && python predict_ph.py --model linear 2>&1 | grep -E "(R-squared|RMSE)" | head -5</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && python predict_ph.py --model linear 2>&1 | grep -E "(R-squared|RMSE)" | head -5
+cd /home/jedick/github/microbial-pH-predictions && python predict_ph.py --model linear 2>&1 | grep -E "(R-squared|RMSE)" | head -5
 ```
 
 ```
@@ -4037,10 +4037,10 @@ Verifying the summary file:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && python predict_ph.py --model knn --grid-search test 2>&1 | tail -10</summary>
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && python predict_ph.py --model knn --grid-search test 2>&1 | tail -10</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && python predict_ph.py --model knn --grid-search test 2>&1 | tail -10
+cd /home/jedick/github/microbial-pH-predictions && python predict_ph.py --model knn --grid-search test 2>&1 | tail -10
 ```
 
 ```
@@ -4062,7 +4062,7 @@ Full parameter grids available for command-line execution:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/results/knn_summary.txt</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/results/knn_summary.txt</summary>
 
 </details>
 </tool-use>
@@ -4085,7 +4085,7 @@ Parameters:
 ```json
 {
   "pattern": "f.write.*R",
-  "path": "/home/jedick/github/ML-predictions-of-pH/predict_ph.py",
+  "path": "/home/jedick/github/microbial-pH-predictions/predict_ph.py",
   "caseInsensitive": false
 }
 ```
@@ -4095,10 +4095,10 @@ Result:
 {
   "success": {
     "pattern": "f.write.*R",
-    "path": "/home/jedick/github/ML-predictions-of-pH/predict_ph.py",
+    "path": "/home/jedick/github/microbial-pH-predictions/predict_ph.py",
     "outputMode": "content",
     "workspaceResults": {
-      "/home/jedick/github/ML-predictions-of-pH": {
+      "/home/jedick/github/microbial-pH-predictions": {
         "content": {
           "matches": [
             {
@@ -4148,7 +4148,7 @@ Status: **completed**
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 </tool-use>
@@ -4156,10 +4156,10 @@ Status: **completed**
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && python predict_ph.py --model knn --grid-search test 2>&1 | grep -A 2 "Final Model"</summary>
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && python predict_ph.py --model knn --grid-search test 2>&1 | grep -A 2 "Final Model"</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && python predict_ph.py --model knn --grid-search test 2>&1 | grep -A 2 "Final Model"
+cd /home/jedick/github/microbial-pH-predictions && python predict_ph.py --model knn --grid-search test 2>&1 | grep -A 2 "Final Model"
 ```
 </details>
 </tool-use>
@@ -4167,7 +4167,7 @@ cd /home/jedick/github/ML-predictions-of-pH && python predict_ph.py --model knn 
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/results/knn_summary.txt</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/results/knn_summary.txt</summary>
 
 </details>
 </tool-use>
@@ -4203,7 +4203,7 @@ Reformatting `predict_ph.py` with Black and adding a project rule to always use 
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 </tool-use>
@@ -4211,10 +4211,10 @@ Reformatting `predict_ph.py` with Black and adding a project rule to always use 
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && which black || pip install black --quiet && black --version</summary>
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && which black || pip install black --quiet && black --version</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && which black || pip install black --quiet && black --version
+cd /home/jedick/github/microbial-pH-predictions && which black || pip install black --quiet && black --version
 ```
 
 ```
@@ -4237,7 +4237,7 @@ Parameters:
 
 ```json
 {
-  "targetDirectory": "/home/jedick/github/ML-predictions-of-pH/.cursor/rules"
+  "targetDirectory": "/home/jedick/github/microbial-pH-predictions/.cursor/rules"
 }
 ```
 Result:
@@ -4245,7 +4245,7 @@ Result:
 ```json
 {
   "directoryTreeRoot": {
-    "absPath": "/home/jedick/github/ML-predictions-of-pH/.cursor/rules",
+    "absPath": "/home/jedick/github/microbial-pH-predictions/.cursor/rules",
     "childrenFiles": [
       {
         "name": "commit-rules.mdc"
@@ -4267,10 +4267,10 @@ Status: **completed**
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && black predict_ph.py</summary>
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && black predict_ph.py</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && black predict_ph.py
+cd /home/jedick/github/microbial-pH-predictions && black predict_ph.py
 ```
 
 ```
@@ -4292,7 +4292,7 @@ Checking the reformatted file and creating a Black code style rule:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/.cursor/rules/commit-rules.mdc</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/.cursor/rules/commit-rules.mdc</summary>
 
 </details>
 </tool-use>
@@ -4300,7 +4300,7 @@ Checking the reformatted file and creating a Black code style rule:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 </tool-use>
@@ -4309,7 +4309,7 @@ Checking the reformatted file and creating a Black code style rule:
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2">
 
-<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/ML-predictions-of-pH/.cursor/rules/python-code-style.mdc</summary>
+<details><summary>Tool use: **edit_file_v2** • Edit file: /home/jedick/github/microbial-pH-predictions/.cursor/rules/python-code-style.mdc</summary>
 
 </details>
 
@@ -4318,10 +4318,10 @@ Checking the reformatted file and creating a Black code style rule:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && python predict_ph.py --model linear 2>&1 | head -20</summary>
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && python predict_ph.py --model linear 2>&1 | head -20</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && python predict_ph.py --model linear 2>&1 | head -20
+cd /home/jedick/github/microbial-pH-predictions && python predict_ph.py --model linear 2>&1 | head -20
 ```
 
 ```
@@ -4359,7 +4359,7 @@ Verifying the reformatted code and checking a few more sections:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 </tool-use>
@@ -4367,7 +4367,7 @@ Verifying the reformatted code and checking a few more sections:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/predict_ph.py</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/predict_ph.py</summary>
 
 </details>
 </tool-use>
@@ -4375,7 +4375,7 @@ Verifying the reformatted code and checking a few more sections:
 ---
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
-<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/ML-predictions-of-pH/.cursor/rules/python-code-style.mdc</summary>
+<details><summary>Tool use: **read_file_v2** • Read file: /home/jedick/github/microbial-pH-predictions/.cursor/rules/python-code-style.mdc</summary>
 
 </details>
 </tool-use>
@@ -4383,10 +4383,10 @@ Verifying the reformatted code and checking a few more sections:
 ---
 
 <tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
-<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/ML-predictions-of-pH && black --check predict_ph.py</summary>
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /home/jedick/github/microbial-pH-predictions && black --check predict_ph.py</summary>
 
 ```bash
-cd /home/jedick/github/ML-predictions-of-pH && black --check predict_ph.py
+cd /home/jedick/github/microbial-pH-predictions && black --check predict_ph.py
 ```
 
 ```
