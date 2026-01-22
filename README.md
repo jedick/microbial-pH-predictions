@@ -15,6 +15,37 @@ The `process_rdp_data.py` script is used to aggregate taxonomic counts from RDP 
 
 **Note**: The source RDP classifier files are not stored in this repository but can be downloaded from the [JMDplots repository](https://github.com/jedick/JMDplots/tree/main/inst/extdata/orp16S/RDP-GTDB).
 
+## SRA data download
+
+The `download_sra_data.py` script downloads DNA sequence data from the NCBI Sequence Read Archive (SRA) for samples listed in `sample_data.csv`. The script downloads only the first 0.25MB of each sample to manage storage requirements while preserving sequence data for analysis.
+
+```bash
+python download_sra_data.py
+```
+
+<details>
+<summary>Details</summary>
+
+The script processes samples from `sample_data.csv` that have sample_ids matching the `SRR*` or `ERR*` pattern (NCBI SRA identifiers). For each sample, it downloads the first 0.25MB from the NCBI SRA fasta endpoint, processes the incomplete gzip file, and saves the result to `data/fasta/{study_name}/{sample_id}.fasta.gz`.
+
+- **Partial downloads**: Uses HTTP Range headers to download only the first 0.25MB, reducing storage requirements
+- **Incomplete gzip handling**: Extracts truncated gzip files using `zcat`, which can handle incomplete archives
+- **Sequence truncation protection**: Removes the last sequence from each file since it may be truncated due to the partial download
+- **Duplicate handling**: Automatically skips samples that have already been downloaded or appear multiple times in the CSV
+- **Pattern filtering**: Only processes sample_ids matching `SRR*` or `ERR*` patterns; other identifiers are skipped
+- **Progress tracking**: Shows current study_name and sample_id during processing with a summary at completion
+- **Cleanup on interruption**: Removes temporary files if the script is interrupted (Ctrl+C), preventing leftover files
+
+**Output Structure:**
+- Files are saved to `data/fasta/{study_name}/{sample_id}.fasta.gz`
+- Each file contains complete DNA sequences (except the last one, which is removed to avoid truncation artifacts)
+
+**Requirements:**
+- `requests` library for HTTP downloads
+- `zcat` command (part of gzip utilities) for extracting incomplete gzip files
+
+</details>
+
 ## Hugging Face dataset creation
 
 The `create_hf_dataset.py` script creates a Hugging Face dataset from DNA sequences stored in gzipped FASTA files and sample metadata. This dataset is designed for training language models on 16S rRNA gene sequences to predict pH values.
