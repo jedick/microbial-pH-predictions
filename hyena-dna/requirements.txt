@@ -2,3 +2,4 @@ transformers
 torchvision
 einops
 omegaconf
+genomic-benchmarks

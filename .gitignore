@@ -1,4 +1,6 @@
-RDP_classifier/
-checkpoints/
-fasta/
+RDP_classifier
+checkpoints
+hyenadna_ph
+content
+fasta
 .env
