@@ -1,6 +1,6 @@
 # Microbial pH predictions
 
-## Project Overview
+## Project overview
 
 This project aims to develop machine learning models for predicting pH from microbial abundances and 16S rRNA gene sequences. The approach incorporates both traditional machine learning methods (e.g., Random Forests and KNN regression) and deep learning techniques, with particular emphasis on language models for predictions from gene sequences.
 
@@ -9,39 +9,36 @@ This project aims to develop machine learning models for predicting pH from micr
 - **Traditional ML**: Random Forests, KNN regression, and other classical approaches
 - **Deep Learning**: Language models and other neural network architectures, especially for gene sequence-based predictions
 
-## Data Processing
+## Data processing
 
 The `process_rdp_data.py` script is used to aggregate taxonomic counts from RDP classifier output files. The script processes `.tab` files in the `data/RDP_classifier` directory and generates aggregated count tables saved as CSV files in the `data` directory. The output files contain taxonomic counts at various levels (phylum, class, order, family, genus) with samples as rows and taxonomic groups as columns.
 
 **Note**: The source RDP classifier files are not stored in this repository but can be downloaded from the [JMDplots repository](https://github.com/jedick/JMDplots/tree/main/inst/extdata/orp16S/RDP-GTDB).
 
-## pH Prediction Workflow
+## Hugging Face dataset creation
 
-The `predict_ph.py` script implements a machine learning pipeline for predicting pH values from bacterial phylum abundances. The workflow includes:
+The `create_hf_dataset.py` script creates a Hugging Face dataset from DNA sequences stored in gzipped FASTA files and sample metadata. This dataset is designed for training language models on 16S rRNA gene sequences to predict pH values.
 
-1. **Data Loading and Preprocessing**:
-   - Filters sample data to include only Bacteria lineage
-   - Removes samples with missing pH values
-   - Joins sample metadata with phylum count data
-   - Performs L1 normalization to convert counts to relative abundances
-
-2. **Train-Test Split**:
-   - Creates an 80-20 stratified split based on environment type (`envirotype`)
-   - Ensures balanced representation of environment types in both sets
-
-3. **Model Training**:
-   - Supports four regression models: Linear Regression, KNN, Random Forest, and HistGradientBoosting
-   - Optional grid search with progress bar for hyperparameter tuning
-   - Uses scikit-learn Pipeline for preprocessing and model fitting
-
-4. **Output**:
-   - Saves test set predictions to CSV files with study names and sample IDs
-   - Generates summary files with model metrics (RMSE, R-squared, MAE) and grid search results
-
-### Usage
+```bash
+# Requires HF_TOKEN in .env file
+python create_hf_dataset.py
+```
 
 <details>
-<summary>Click to expand command-line usage examples</summary>
+<summary>Details</summary>
+
+The script processes DNA sequences from FASTA files organized by study (`data/fasta/{study_name}/{sample_id}.fasta.gz`) and combines them with metadata from `sample_data.csv` to create a structured dataset suitable for machine learning workflows.
+
+- **Automatic validation**: Ensures all FASTA files have corresponding entries in `sample_data.csv`
+- **Incremental updates**: Skips samples that already exist in the dataset, allowing for incremental additions
+- **Size management**: Limits total DNA length per sample to 1 MB to manage dataset size
+- **Metadata integration**: Includes sample metadata (pH, environment, domain) alongside sequences
+
+</details>
+
+## pH prediction workflow
+
+The `predict_ph.py` script implements a machine learning pipeline for predicting pH values from bacterial phylum abundances. The workflow includes data loading and preprocessing, train-test split, model training, and output.
 
 ```bash
 # Test grid search with KNN (default, 4 combinations)
@@ -63,6 +60,27 @@ python predict_ph.py --model rf \
     --output-dir results/rf_experiment
 ```
 
+<details>
+<summary>Details</summary>
+
+1. **Data Loading and Preprocessing**:
+   - Filters sample data to include only the domain Bacteria
+   - Removes samples with missing pH values
+   - Joins sample metadata with phylum count data
+   - Performs L1 normalization to convert counts to relative abundances
+
+2. **Train-Test Split**:
+   - Creates an 80-20 stratified split based on environment
+   - Ensures balanced representation of environment types in both sets
+
+3. **Model Training**:
+   - Optional grid search with progress bar for hyperparameter tuning
+   - Uses scikit-learn Pipeline for preprocessing and model fitting
+
+4. **Output**:
+   - Saves test set predictions to CSV files with study names and sample IDs
+   - Generates summary files with model metrics (RMSE, R-squared, MAE) and grid search results
+
 **Available Models:**
 - `linear`: Linear Regression
 - `knn`: K-Nearest Neighbors Regression
@@ -80,6 +98,6 @@ python predict_ph.py --model rf \
 
 </details>
 
-## Project History
+## Project history
 
 _Notable changes to architecture, data, features, or results will be documented here._

@@ -91,22 +91,22 @@ def read_sequences_from_fasta(
 
 def load_sample_data(csv_path: Path) -> Dict[Tuple[str, str], Dict]:
     """
-    Load sample data from CSV and return a dictionary mapping (study, Run) -> data.
+    Load sample data from CSV and return a dictionary mapping (study_name, sample_id) -> data.
     """
     sample_data = {}
     with open(csv_path, "r") as f:
         reader = csv.DictReader(f)
         for row in reader:
-            study = row["study"]
-            run_id = row["Run"]
-            key = (study, run_id)
+            study_name = row["study_name"]
+            sample_id = row["sample_id"]
+            key = (study_name, sample_id)
             sample_data[key] = {
-                "study_name": study,
-                "sample_id": run_id,
+                "study_name": study_name,
+                "sample_id": sample_id,
                 "pH": float(row["pH"]) if row["pH"] and row["pH"] != "NA" else None,
                 "sample": row["sample"],
-                "envirotype": row["envirotype"],
-                "lineage": row["lineage"],
+                "environment": row["environment"],
+                "domain": row["domain"],
             }
     return sample_data
 
@@ -204,8 +204,8 @@ def create_dataset_records(
             "num_sequences": len(sequences),
             "total_dna_length": total_length,
             "sample": data["sample"],
-            "envirotype": data["envirotype"],
-            "lineage": data["lineage"],
+            "environment": data["environment"],
+            "domain": data["domain"],
         }
 
         records.append(record)

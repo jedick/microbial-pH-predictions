@@ -1,3 +1,51 @@
 # README Updates
 
-Whenever a notable change to the project architecture, data, features, or results is made, it must be documented in the README.md file under the "Project History" section.
+Whenever a notable change to the project architecture, data, features, or results is made, it must be documented in the README.md file under the "Project history" section.
+
+## Section Heading Style
+
+All section headings (## level and below) in the README must use **sentence case** (capitalize only the first word and proper nouns), not title case.
+
+Examples:
+- ✅ "Hugging Face dataset creation" (not "Hugging Face Dataset Creation")
+- ✅ "pH prediction workflow" (not "pH Prediction Workflow")
+- ✅ "Data processing" (not "Data Processing")
+- ✅ "Project overview" (not "Project Overview")
+
+## Format for Documenting New Features/Scripts
+
+When adding documentation for new scripts or features to the README, follow this pattern:
+
+1. **Main section heading** (## level)
+2. **Brief description paragraph** - One or two sentences describing what the script/feature does
+3. **Usage code block** (if applicable) - Place immediately after the description, before any details
+4. **Details section** - Use a collapsible `<details>` block with:
+   - Summary text: "Details"
+   - Additional description paragraphs
+   - Bullet points for key features/capabilities
+
+Example structure:
+
+```markdown
+## Feature name
+
+Brief description of what the feature/script does and its purpose.
+
+```bash
+# Usage example
+command --option value
+```
+
+<details>
+<summary>Details</summary>
+
+Additional description and context about how it works.
+
+- **Feature 1**: Description
+- **Feature 2**: Description
+- **Feature 3**: Description
+
+</details>
+```
+
+**Do NOT use subheadings** like "### Purpose", "### Features", "### Usage" within the main section. Instead, place usage immediately after the description and put all details in the collapsible section.

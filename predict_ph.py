@@ -56,9 +56,9 @@ def load_and_preprocess_data(sample_data_path, phylum_counts_path, random_seed=4
     print("Loading sample data...")
     sample_data = pd.read_csv(sample_data_path)
 
-    # Filter to Bacteria lineage and remove missing pH
+    # Filter to Bacteria domain and remove missing pH
     print("Filtering data...")
-    sample_data = sample_data[sample_data["lineage"] == "Bacteria"].copy()
+    sample_data = sample_data[sample_data["domain"] == "Bacteria"].copy()
     sample_data = sample_data.dropna(subset=["pH"])
 
     print(f"Sample data shape after filtering: {sample_data.shape}")
@@ -69,11 +69,11 @@ def load_and_preprocess_data(sample_data_path, phylum_counts_path, random_seed=4
 
     print(f"Phylum counts shape: {phylum_counts.shape}")
 
-    # Join on study = study_name and sample_id = Run
+    # Join on study_name and sample_id
     print("Joining datasets...")
     merged_data = sample_data.merge(
         phylum_counts,
-        left_on=["study", "Run"],
+        left_on=["study_name", "sample_id"],
         right_on=["study_name", "sample_id"],
         how="inner",
     )
@@ -87,7 +87,7 @@ def load_and_preprocess_data(sample_data_path, phylum_counts_path, random_seed=4
     # Extract features (phylum counts) and target (pH)
     X = merged_data[phylum_cols].values
     y = merged_data["pH"].values
-    envirotype = merged_data["envirotype"].values
+    environment = merged_data["environment"].values
 
     # Store metadata for test set (study_name and sample_id)
     metadata = merged_data[["study_name", "sample_id"]].copy()
@@ -106,17 +106,17 @@ def load_and_preprocess_data(sample_data_path, phylum_counts_path, random_seed=4
     ) = train_test_split(
         X,
         y,
-        envirotype,
+        environment,
         metadata,
         test_size=0.2,
         random_state=random_seed,
-        stratify=envirotype,
+        stratify=environment,
     )
 
     print(f"Train set size: {X_train.shape[0]}")
     print(f"Test set size: {X_test.shape[0]}")
-    print(f"Train envirotype distribution:\n{pd.Series(env_train).value_counts()}")
-    print(f"Test envirotype distribution:\n{pd.Series(env_test).value_counts()}")
+    print(f"Train environment distribution:\n{pd.Series(env_train).value_counts()}")
+    print(f"Test environment distribution:\n{pd.Series(env_test).value_counts()}")
 
     return X_train, X_test, y_train, y_test, phylum_cols, metadata_test
 
