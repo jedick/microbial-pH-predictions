@@ -3,7 +3,7 @@
 Download SRA data from NCBI Sequence Read Archive.
 
 This script:
-- Reads sample_data.csv to find sample_ids matching SRR* or ERR* pattern
+- Reads sample_data.csv to find sample_ids matching SRR*, ERR*, or DRR* pattern
 - Downloads only the first 0.25MB from NCBI SRA URLs
 - Processes incomplete gzip files (extract, remove last sequence, re-gzip)
 - Saves to data/fasta/<study_name>/<sample_id>.fasta.gz
@@ -244,8 +244,8 @@ def main():
         print(f"Error: {csv_path} not found")
         sys.exit(1)
 
-    # Pattern to match SRR* or ERR* sample_ids
-    pattern = re.compile(r"^(SRR|ERR)\d+$")
+    # Pattern to match SRR*, ERR*, or DRR* sample_ids
+    pattern = re.compile(r"^(SRR|ERR|DRR)\d+$")
 
     # Track processed sample_ids to skip duplicates
     processed_samples: Set[Tuple[str, str]] = set()

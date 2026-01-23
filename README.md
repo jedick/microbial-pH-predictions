@@ -26,13 +26,13 @@ python download_sra_data.py
 <details>
 <summary>Details</summary>
 
-The script processes samples from `sample_data.csv` that have sample_ids matching the `SRR*` or `ERR*` pattern (NCBI SRA identifiers). For each sample, it downloads the first 0.25MB from the NCBI SRA fasta endpoint, processes the incomplete gzip file, and saves the result to `data/fasta/{study_name}/{sample_id}.fasta.gz`.
+The script processes samples from `sample_data.csv` that have sample_ids matching the `SRR*`, `ERR*`, or `DRR*` pattern (NCBI SRA identifiers). For each sample, it downloads the first 0.25MB from the NCBI SRA fasta endpoint, processes the incomplete gzip file, and saves the result to `data/fasta/{study_name}/{sample_id}.fasta.gz`.
 
 - **Partial downloads**: Uses HTTP Range headers to download only the first 0.25MB, reducing storage requirements
 - **Incomplete gzip handling**: Extracts truncated gzip files using `zcat`, which can handle incomplete archives
 - **Sequence truncation protection**: Removes the last sequence from each file since it may be truncated due to the partial download
 - **Duplicate handling**: Automatically skips samples that have already been downloaded or appear multiple times in the CSV
-- **Pattern filtering**: Only processes sample_ids matching `SRR*` or `ERR*` patterns; other identifiers are skipped
+- **Pattern filtering**: Only processes sample_ids matching `SRR*`, `ERR*`, or `DRR*` patterns; other identifiers are skipped
 - **Progress tracking**: Shows current study_name and sample_id during processing with a summary at completion
 - **Cleanup on interruption**: Removes temporary files if the script is interrupted (Ctrl+C), preventing leftover files
 
@@ -62,7 +62,7 @@ The script processes DNA sequences from FASTA files organized by study (`data/fa
 
 - **Automatic validation**: Ensures all FASTA files have corresponding entries in `sample_data.csv`
 - **Incremental updates**: Skips samples that already exist in the dataset, allowing for incremental additions
-- **Size management**: Limits total DNA length per sample to 1 MB to manage dataset size
+- **Size management**: Limits total DNA length per sample to 0.25 MB to manage dataset size
 - **Metadata integration**: Includes sample metadata (pH, environment, domain) alongside sequences
 
 </details>

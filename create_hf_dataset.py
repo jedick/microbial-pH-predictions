@@ -22,7 +22,7 @@ HF_DATASET_NAME = "microbial-DNA-pH"
 HF_DATASET_REPO = f"{HF_USERNAME}/{HF_DATASET_NAME}"
 
 # Constants
-MAX_DNA_LENGTH = 1 * 1024 * 1024  # 1 MB in bytes (1,048,576 bytes)
+MAX_DNA_LENGTH = 1 * 256 * 1024  # 1 MB in bytes (262,144 bytes)
 
 
 def parse_fasta_header(header: str) -> Optional[str]:
