@@ -10,9 +10,9 @@ import pandas as pd
 import numpy as np
 from pathlib import Path
 import time
-from sklearn.model_selection import ParameterGrid, cross_val_score
+from sklearn.model_selection import ParameterGrid, cross_val_score, train_test_split
+from datasets import load_dataset
 
-from data_splits import DEFAULT_RANDOM_SEED, get_train_val_test_ids, is_sra_sample
 from sklearn.preprocessing import Normalizer
 from sklearn.linear_model import LinearRegression
 from sklearn.neighbors import KNeighborsRegressor
@@ -35,20 +35,18 @@ except ImportError:
 warnings.filterwarnings("ignore")
 
 
-def load_and_preprocess_data(
-    sample_data_path, phylum_counts_path, random_seed=DEFAULT_RANDOM_SEED
-):
+def load_and_preprocess_data(dataset_repo, phylum_counts_path, random_seed=42):
     """
     Load and preprocess data for pH prediction.
 
     Parameters
     ----------
-    sample_data_path : str
-        Path to sample_data.csv
+    dataset_repo : str
+        HuggingFace dataset repository (e.g., "jedick/microbial-DNA-pH")
     phylum_counts_path : str
         Path to bacteria_phylum_counts.csv.xz (compressed)
     random_seed : int
-        Random seed for reproducibility
+        Random seed for reproducibility (default: 42)
 
     Returns
     -------
@@ -56,23 +54,47 @@ def load_and_preprocess_data(
         (X_train, X_test, y_train, y_test, feature_names, test_metadata)
         where test_metadata is a DataFrame with study_name and sample_id for test set
     """
-    # Load sample data
-    print("Loading sample data...")
-    sample_data = pd.read_csv(sample_data_path)
+    # Load sample data from HF dataset
+    print(f"Loading dataset from {dataset_repo}...")
+    dataset = load_dataset(dataset_repo, split="train")
 
-    # Filter to Bacteria domain, remove missing pH, and restrict to SRA samples (SRR*, ERR*, DRR*)
+    # Convert to DataFrame and filter out null pH values
     print("Filtering data...")
-    sample_data = sample_data[sample_data["domain"] == "Bacteria"].copy()
-    sample_data = sample_data.dropna(subset=["pH"])
-    sra_mask = sample_data["sample_id"].astype(str).apply(is_sra_sample)
-    sample_data = sample_data.loc[sra_mask].reset_index(drop=True)
+    sample_data_list = []
+    for item in dataset:
+        if item["pH"] is not None:  # Filter out null pH values
+            sample_data_list.append(
+                {
+                    "study_name": item["study_name"],
+                    "sample_id": item["sample_id"],
+                    "pH": item["pH"],
+                    "environment": item["environment"],
+                }
+            )
 
-    print(f"Sample data shape after filtering (SRA only): {sample_data.shape}")
+    sample_data = pd.DataFrame(sample_data_list)
+    print(f"Sample data shape after filtering (null pH removed): {sample_data.shape}")
+
+    # Create stratified 80:20 train-test split on HF dataset (before merging with phylum counts)
+    # This ensures the same test split as train_hyenadna_ph.py
+    print("Creating stratified train-test split (80:20)...")
+    sample_ids = sample_data["sample_id"].values
+    environment = sample_data["environment"].values
+
+    ids_train, ids_test = train_test_split(
+        sample_ids,
+        test_size=0.2,
+        random_state=random_seed,
+        stratify=environment,
+    )
+
+    # Convert to sets for easier filtering
+    ids_train_set = set(ids_train)
+    ids_test_set = set(ids_test)
 
     # Load phylum counts (pandas can read .xz compressed files directly)
     print("Loading phylum counts from compressed file...")
     phylum_counts = pd.read_csv(phylum_counts_path, compression="xz")
-
     print(f"Phylum counts shape: {phylum_counts.shape}")
 
     # Join on sample_id only (preserves all samples after filtering)
@@ -100,29 +122,25 @@ def load_and_preprocess_data(
     phylum_cols = [col for col in merged_data.columns if col.startswith("phylum__")]
     print(f"Number of phylum features: {len(phylum_cols)}")
 
-    # Use shared stratified 75:5:20 split (train+val=80%, test=20%); traditional ML uses 80% train, 20% test
-    print("Creating stratified train-val-test split (75:5:20)...")
-    train_ids, val_ids, test_ids = get_train_val_test_ids(sample_data_path, random_seed)
-    train_val_ids = train_ids | val_ids  # Union of train and val sets
+    # Filter to train and test sets (only samples with phylum counts)
+    train_mask = merged_data["sample_id"].isin(ids_train_set).values
+    test_mask = merged_data["sample_id"].isin(ids_test_set).values
 
-    # Match on sample_id only
-    train_val_mask = merged_data["sample_id"].isin(train_val_ids).values
-    test_mask = merged_data["sample_id"].isin(test_ids).values
-
-    X_train = merged_data.loc[train_val_mask, phylum_cols].values
+    X_train = merged_data.loc[train_mask, phylum_cols].values
     X_test = merged_data.loc[test_mask, phylum_cols].values
-    y_train = merged_data.loc[train_val_mask, "pH"].values
+    y_train = merged_data.loc[train_mask, "pH"].values
     y_test = merged_data.loc[test_mask, "pH"].values
+
     metadata_test = (
         merged_data.loc[test_mask, ["study_name", "sample_id"]]
         .copy()
         .reset_index(drop=True)
     )
 
-    env_train = merged_data.loc[train_val_mask, "environment"].values
+    env_train = merged_data.loc[train_mask, "environment"].values
     env_test = merged_data.loc[test_mask, "environment"].values
 
-    print(f"Train set size (train+val): {X_train.shape[0]}")
+    print(f"Train set size: {X_train.shape[0]}")
     print(f"Test set size: {X_test.shape[0]}")
     print(f"Train environment distribution:\n{pd.Series(env_train).value_counts()}")
     print(f"Test environment distribution:\n{pd.Series(env_test).value_counts()}")
@@ -282,10 +300,10 @@ def main():
         "rf (Random Forest), or hgb (HistGradientBoosting)",
     )
     parser.add_argument(
-        "--sample-data",
+        "--dataset-repo",
         type=str,
-        default="data/sample_data.csv",
-        help="Path to sample_data.csv (default: data/sample_data.csv)",
+        default="jedick/microbial-DNA-pH",
+        help="HuggingFace dataset repository (default: jedick/microbial-DNA-pH)",
     )
     parser.add_argument(
         "--phylum-counts",
@@ -296,7 +314,7 @@ def main():
     parser.add_argument(
         "--random-seed",
         type=int,
-        default=DEFAULT_RANDOM_SEED,
+        default=42,
         help="Random seed for reproducibility (default: 42)",
     )
     parser.add_argument(
@@ -328,7 +346,9 @@ def main():
 
     # Load and preprocess data
     X_train, X_test, y_train, y_test, feature_names, test_metadata = (
-        load_and_preprocess_data(args.sample_data, args.phylum_counts, args.random_seed)
+        load_and_preprocess_data(
+            args.dataset_repo, args.phylum_counts, args.random_seed
+        )
     )
 
     # Create pipeline

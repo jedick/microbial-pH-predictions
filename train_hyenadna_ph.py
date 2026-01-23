@@ -20,8 +20,8 @@ import torch.nn as nn
 import torch.nn.functional as F
 from datasets import load_dataset
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+from sklearn.model_selection import train_test_split
 
-from data_splits import DEFAULT_RANDOM_SEED, get_train_val_test_ids
 from torch.utils.data import DataLoader, Dataset
 from tqdm import tqdm
 
@@ -624,15 +624,9 @@ def main():
         help="HuggingFace dataset repository",
     )
     parser.add_argument(
-        "--sample-data",
-        type=str,
-        default="data/sample_data.csv",
-        help="Path to sample_data.csv (for shared train/val/test split)",
-    )
-    parser.add_argument(
         "--random-seed",
         type=int,
-        default=DEFAULT_RANDOM_SEED,
+        default=42,
         help="Random seed for reproducibility (default: 42)",
     )
 
@@ -680,15 +674,45 @@ def main():
     # Load dataset (HF has SRA samples only; includes study_name, sample_id)
     data = load_dataset_from_hf(args.dataset_repo, filter_missing_ph=True)
 
-    # Use shared stratified 75:5:20 split (same seed & test set as traditional ML)
-    train_ids, val_ids, test_ids = get_train_val_test_ids(
-        args.sample_data, args.random_seed
+    # Create stratified 75:5:20 split (same test set as traditional ML)
+    # First split 80:20 (train+val : test) with same random seed
+    # Then split 80% into 75% train and 5% val
+    print("Creating stratified train-val-test split (75:5:20)...")
+
+    # Extract sample_ids, pH, and environment for stratification
+    sample_ids = [d["sample_id"] for d in data]
+    ph_values = [d["pH"] for d in data]
+    environments = [d.get("environment", "unknown") for d in data]
+
+    # First split: 80% train+val, 20% test (same as traditional ML)
+    ids_trainval, ids_test, data_trainval, data_test, env_trainval, env_test = (
+        train_test_split(
+            sample_ids,
+            data,
+            environments,
+            test_size=0.2,
+            random_state=args.random_seed,
+            stratify=environments,
+        )
     )
 
-    # Subset HF data by sample_id for each fold
-    train_data = [d for d in data if d["sample_id"] in train_ids]
-    val_data = [d for d in data if d["sample_id"] in val_ids]
-    test_data = [d for d in data if d["sample_id"] in test_ids]
+    # Second split: split train+val into 75% train and 5% val
+    # val_size = 5% of total = 5/80 = 0.0625 of trainval
+    n_total = len(data)
+    n_val = int(round(n_total * 0.05))
+    val_size = n_val / len(data_trainval)
+
+    ids_train, ids_val, data_train, data_val = train_test_split(
+        ids_trainval,
+        data_trainval,
+        test_size=val_size,
+        random_state=args.random_seed,
+        stratify=env_trainval,
+    )
+
+    train_data = data_train
+    val_data = data_val
+    test_data = data_test
 
     print(
         f"Data split (75:5:20): train={len(train_data)}, val={len(val_data)}, "
