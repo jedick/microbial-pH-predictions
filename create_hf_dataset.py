@@ -92,11 +92,16 @@ def read_sequences_from_fasta(
 def load_sample_data(csv_path: Path) -> Dict[Tuple[str, str], Dict]:
     """
     Load sample data from CSV and return a dictionary mapping (study_name, sample_id) -> data.
+    Only includes entries with domain == "Bacteria".
     """
     sample_data = {}
     with open(csv_path, "r") as f:
         reader = csv.DictReader(f)
         for row in reader:
+            # Filter for only Bacteria domain
+            if row["domain"] != "Bacteria":
+                continue
+
             study_name = row["study_name"]
             sample_id = row["sample_id"]
             key = (study_name, sample_id)
@@ -115,11 +120,12 @@ def validate_fasta_files(
     fasta_dir: Path, sample_data: Dict[Tuple[str, str], Dict]
 ) -> List[Tuple[Path, str, str]]:
     """
-    Validate that all fasta files have matching entries in sample_data.csv.
+    Find fasta files that have matching entries in sample_data.csv.
+    Files without matching entries are skipped with a message.
     Returns list of (fasta_path, study_name, sample_id) tuples.
     """
     fasta_files = []
-    missing_entries = []
+    skipped_count = 0
 
     # Walk through fasta directory structure: data/fasta/{study_name}/{sample_id}.fasta.gz
     for study_dir in fasta_dir.iterdir():
@@ -134,19 +140,16 @@ def validate_fasta_files(
 
             key = (study_name, sample_id)
             if key not in sample_data:
-                missing_entries.append((fasta_file, study_name, sample_id))
+                # print(f"  Skipping {fasta_file}: no matching entry in sample_data.csv (study_name={study_name}, sample_id={sample_id})")
+                skipped_count += 1
             else:
                 fasta_files.append((fasta_file, study_name, sample_id))
 
-    if missing_entries:
-        print(
-            "ERROR: The following fasta files do not have matching entries in sample_data.csv:"
-        )
-        for fasta_file, study_name, sample_id in missing_entries:
-            print(f"  - {fasta_file}: study_name={study_name}, sample_id={sample_id}")
-        raise ValueError("Some fasta files are missing from sample_data.csv")
-
-    print(f"✓ Validated {len(fasta_files)} fasta files against sample_data.csv")
+    print(
+        f"✓ Found {len(fasta_files)} fasta files with matching entries in sample_data.csv"
+    )
+    if skipped_count > 0:
+        print(f"  Skipped {skipped_count} fasta files without matching entries")
     return fasta_files
 
 
@@ -262,8 +265,8 @@ def main():
     sample_data = load_sample_data(sample_data_path)
     print(f"✓ Loaded {len(sample_data)} sample records")
 
-    # Validate fasta files
-    print("\nValidating fasta files...")
+    # Find fasta files with matching entries in sample_data
+    print("\nFinding fasta files...")
     fasta_files = validate_fasta_files(fasta_dir, sample_data)
 
     # Check existing records
