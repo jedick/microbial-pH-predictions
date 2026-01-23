@@ -215,11 +215,38 @@ def concatenate_sequences(
         # Return single [SEP] token if no sequences
         return [sep_token_id]
 
-    # Tokenize each sequence (remove special tokens, keep only DNA tokens)
+    # Filter out empty sequences first
+    valid_sequences = [seq for seq in sequences if seq and len(seq) > 0]
+
+    if not valid_sequences:
+        # No valid sequences, return single [SEP]
+        return [sep_token_id]
+
+    # Precompute how many sequences we need based on character lengths
+    # For character tokenizer, each DNA character maps to one token (after filtering special tokens)
+    # We need to account for: sequence lengths + (n-1) SEP tokens for n sequences
+    cumulative_length = 0
+    sequences_to_use = []
+
+    for seq in valid_sequences:
+        seq_len = len(seq)
+        # Estimate tokens needed: seq_len characters + 1 SEP token (if not first sequence)
+        tokens_needed = seq_len + (1 if sequences_to_use else 0)
+
+        if cumulative_length + tokens_needed <= max_length:
+            sequences_to_use.append(seq)
+            cumulative_length += tokens_needed
+        else:
+            # This sequence would exceed max_length, stop here
+            break
+
+    if not sequences_to_use:
+        # Even the first sequence is too long, we'll truncate it
+        sequences_to_use = [valid_sequences[0]]
+
+    # Now tokenize only the sequences we'll use
     tokenized_seqs = []
-    for seq in sequences:
-        if not seq or len(seq) == 0:
-            continue
+    for seq in sequences_to_use:
         # Tokenize and extract input_ids
         tokens = tokenizer(seq)["input_ids"]
         # Remove special tokens (keep only DNA character tokens, which have IDs >= 7)
@@ -228,7 +255,7 @@ def concatenate_sequences(
             tokenized_seqs.append(dna_tokens)
 
     if not tokenized_seqs:
-        # No valid sequences, return single [SEP]
+        # No valid tokens after filtering, return single [SEP]
         return [sep_token_id]
 
     # Concatenate with [SEP] tokens between sequences
