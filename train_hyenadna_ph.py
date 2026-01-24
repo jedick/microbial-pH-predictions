@@ -161,6 +161,7 @@ class pHDataset(Dataset):
         tokenizer: CharacterTokenizer,
         max_length: int,
         sep_token_id: int = SEP_TOKEN_ID,
+        num_sets: int = 5,
     ):
         """
         Initialize dataset.
@@ -170,17 +171,40 @@ class pHDataset(Dataset):
             tokenizer: CharacterTokenizer instance
             max_length: Maximum sequence length
             sep_token_id: [SEP] token ID for concatenation
+            num_sets: Number of non-overlapping sequence sets per sample (default: 5)
         """
         self.data = data
         self.tokenizer = tokenizer
         self.max_length = max_length
         self.sep_token_id = sep_token_id
+        self.num_sets = num_sets
+
+        # Expand data: each original sample becomes num_sets samples
+        # Pre-compute sequence sets for each sample
+        self.expanded_data = []
+        for item in data:
+            sequences = item["sequences"]
+            # Split sequences into num_sets non-overlapping sets
+            sequence_sets = split_sequences_into_sets(sequences, max_length, num_sets)
+
+            # Create one entry per set
+            for set_idx, seq_set in enumerate(sequence_sets):
+                if seq_set:  # Only add non-empty sets
+                    self.expanded_data.append(
+                        {
+                            "sequences": seq_set,
+                            "pH": item["pH"],
+                            "study_name": item.get("study_name", ""),
+                            "sample_id": item.get("sample_id", ""),
+                            "set_idx": set_idx + 1,  # 1-indexed for output
+                        }
+                    )
 
     def __len__(self):
-        return len(self.data)
+        return len(self.expanded_data)
 
     def __getitem__(self, idx):
-        item = self.data[idx]
+        item = self.expanded_data[idx]
         sequences = item["sequences"]
         ph = item["pH"]
 
@@ -194,7 +218,69 @@ class pHDataset(Dataset):
             "ph": torch.tensor(ph, dtype=torch.float32),
             "study_name": item.get("study_name", ""),
             "sample_id": item.get("sample_id", ""),
+            "set_idx": item.get("set_idx", 1),
         }
+
+
+def split_sequences_into_sets(
+    sequences: List[str],
+    max_length: int,
+    num_sets: int = 5,
+) -> List[List[str]]:
+    """
+    Split sequences into non-overlapping sets, each fitting within max_length.
+
+    Args:
+        sequences: List of DNA sequence strings
+        max_length: Maximum total length for each set (in characters, before tokenization)
+        num_sets: Number of non-overlapping sets to create
+
+    Returns:
+        List of num_sets lists of sequences, each fitting within max_length
+    """
+    if not sequences:
+        # Return num_sets empty sets
+        return [[] for _ in range(num_sets)]
+
+    # Filter out empty sequences
+    valid_sequences = [seq for seq in sequences if seq and len(seq) > 0]
+
+    if not valid_sequences:
+        return [[] for _ in range(num_sets)]
+
+    # Create num_sets non-overlapping sets
+    sets = [[] for _ in range(num_sets)]
+    current_set_idx = 0
+    sequence_idx = 0
+
+    while sequence_idx < len(valid_sequences) and current_set_idx < num_sets:
+        current_set = sets[current_set_idx]
+        cumulative_length = sum(len(seq) for seq in current_set)
+
+        # Try to add sequences to current set
+        while sequence_idx < len(valid_sequences):
+            seq = valid_sequences[sequence_idx]
+            seq_len = len(seq)
+            # Estimate tokens needed: seq_len characters + 1 SEP token (if not first sequence)
+            tokens_needed = seq_len + (1 if current_set else 0)
+
+            if cumulative_length + tokens_needed <= max_length:
+                current_set.append(seq)
+                cumulative_length += tokens_needed
+                sequence_idx += 1
+            else:
+                # This sequence would exceed max_length for current set
+                # Move to next set
+                break
+
+        # Move to next set (either we filled this one or can't add more)
+        current_set_idx += 1
+
+        # If all sequences processed, we're done
+        if sequence_idx >= len(valid_sequences):
+            break
+
+    return sets
 
 
 def concatenate_sequences(
@@ -281,16 +367,17 @@ def collate_fn(batch: List[Dict]) -> Dict:
     Collate function for DataLoader.
 
     Args:
-        batch: List of dicts with 'input_ids', 'ph', 'study_name', 'sample_id'
+        batch: List of dicts with 'input_ids', 'ph', 'study_name', 'sample_id', 'set_idx'
 
     Returns:
         Dictionary with batched tensors (input_ids, attention_mask, ph) and
-        lists (study_name, sample_id)
+        lists (study_name, sample_id, set_idx)
     """
     input_ids = [item["input_ids"] for item in batch]
     ph_values = torch.stack([item["ph"] for item in batch])
     study_names = [item.get("study_name", "") for item in batch]
     sample_ids = [item.get("sample_id", "") for item in batch]
+    set_indices = [item.get("set_idx", 1) for item in batch]
 
     # Find max length in batch
     max_len = max(len(ids) for ids in input_ids)
@@ -313,6 +400,7 @@ def collate_fn(batch: List[Dict]) -> Dict:
         "ph": ph_values,
         "study_name": study_names,
         "sample_id": sample_ids,
+        "set_idx": set_indices,
     }
 
 
@@ -679,10 +767,10 @@ def main():
     # Load dataset (HF has SRA samples only; includes study_name, sample_id)
     data = load_dataset_from_hf(args.dataset_repo, filter_missing_ph=True)
 
-    # Create stratified 75:5:20 split (same test set as traditional ML)
+    # Create stratified 70:10:20 split (same test set as traditional ML)
     # First split 80:20 (train+val : test) with same random seed
-    # Then split 80% into 75% train and 5% val
-    print("Creating stratified train-val-test split (75:5:20)...")
+    # Then split 80% into 70% train and 10% val
+    print("Creating stratified train-val-test split (70:10:20)...")
 
     # Extract sample_ids, pH, and environment for stratification
     # Data is already sorted by sample_id from load_dataset_from_hf
@@ -702,10 +790,10 @@ def main():
         )
     )
 
-    # Second split: split train+val into 75% train and 5% val
-    # val_size = 5% of total = 5/80 = 0.0625 of trainval
+    # Second split: split train+val into 70% train and 10% val
+    # val_size = 10% of total = 10/80 = 0.125 of trainval
     n_total = len(data)
-    n_val = int(round(n_total * 0.05))
+    n_val = int(round(n_total * 0.10))
     val_size = n_val / len(data_trainval)
 
     ids_train, ids_val, data_train, data_val = train_test_split(
@@ -721,7 +809,7 @@ def main():
     test_data = data_test
 
     print(
-        f"Data split (75:5:20): train={len(train_data)}, val={len(val_data)}, "
+        f"Data split (70:10:20): train={len(train_data)}, val={len(val_data)}, "
         f"test={len(test_data)}"
     )
 
@@ -842,6 +930,7 @@ def main():
     test_true = []
     test_study_names = []
     test_sample_ids = []
+    test_set_indices = []
     with torch.no_grad():
         for batch in test_loader:
             input_ids = batch["input_ids"].to(device)
@@ -851,22 +940,83 @@ def main():
             test_true.extend(ph_true.cpu().numpy())
             test_study_names.extend(batch["study_name"])
             test_sample_ids.extend(batch["sample_id"])
+            test_set_indices.extend(batch["set_idx"])
 
-    # Save predictions
+    # Aggregate predictions by sample_id
+    # Each sample_id should have up to 5 predictions (one per set)
     import pandas as pd
+    from collections import defaultdict
 
-    predictions_df = pd.DataFrame(
-        {
-            "study_name": test_study_names,
-            "sample_id": test_sample_ids,
-            "true_ph": test_true,
-            "predicted_ph": np.round(test_preds, 3),
-            "residual": np.round(np.array(test_true) - np.array(test_preds), 3),
+    # Group predictions by sample_id
+    sample_data = defaultdict(
+        lambda: {
+            "study_name": None,
+            "true_ph": None,
+            "predictions": {},  # set_idx -> predicted_ph
         }
     )
+
+    for i, sample_id in enumerate(test_sample_ids):
+        set_idx = test_set_indices[i]
+        sample_data[sample_id]["study_name"] = test_study_names[i]
+        sample_data[sample_id]["true_ph"] = test_true[i]
+        sample_data[sample_id]["predictions"][set_idx] = test_preds[i]
+
+    # Create DataFrame with one row per sample_id
+    rows = []
+    for sample_id, data in sorted(sample_data.items()):
+        predictions = data["predictions"]
+        # Get predictions for sets 1-5, fill with NaN if missing
+        pred_1 = predictions.get(1, np.nan)
+        pred_2 = predictions.get(2, np.nan)
+        pred_3 = predictions.get(3, np.nan)
+        pred_4 = predictions.get(4, np.nan)
+        pred_5 = predictions.get(5, np.nan)
+
+        # Calculate mean of available predictions
+        available_preds = [
+            p for p in [pred_1, pred_2, pred_3, pred_4, pred_5] if not np.isnan(p)
+        ]
+        mean_pred = np.mean(available_preds) if available_preds else np.nan
+
+        rows.append(
+            {
+                "study_name": data["study_name"],
+                "sample_id": sample_id,
+                "true_ph": data["true_ph"],
+                "predicted_ph_set1": (
+                    np.round(pred_1, 3) if not np.isnan(pred_1) else np.nan
+                ),
+                "predicted_ph_set2": (
+                    np.round(pred_2, 3) if not np.isnan(pred_2) else np.nan
+                ),
+                "predicted_ph_set3": (
+                    np.round(pred_3, 3) if not np.isnan(pred_3) else np.nan
+                ),
+                "predicted_ph_set4": (
+                    np.round(pred_4, 3) if not np.isnan(pred_4) else np.nan
+                ),
+                "predicted_ph_set5": (
+                    np.round(pred_5, 3) if not np.isnan(pred_5) else np.nan
+                ),
+                "predicted_ph_mean": (
+                    np.round(mean_pred, 3) if not np.isnan(mean_pred) else np.nan
+                ),
+                "residual_mean": (
+                    np.round(data["true_ph"] - mean_pred, 3)
+                    if not np.isnan(mean_pred)
+                    else np.nan
+                ),
+            }
+        )
+
+    predictions_df = pd.DataFrame(rows)
     predictions_path = output_dir / "test_predictions.csv"
     predictions_df.to_csv(predictions_path, index=False)
     print(f"Saved test predictions to {predictions_path}")
+    print(
+        f"  Aggregated {len(test_sample_ids)} predictions into {len(predictions_df)} unique samples"
+    )
 
     print("\nTraining complete!")
 
