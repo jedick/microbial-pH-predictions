@@ -61,7 +61,7 @@ class RegressionHead(nn.Module):
 
         Args:
             d_model: Hidden dimension from backbone
-            architecture: One of 'linear', 'mlp2', 'mlp3', 'mlp2_ln'
+            architecture: One of 'linear', 'mlp2', 'mlp3', 'mlp4_high', 'mlp4_low', 'mlp5', 'mlp2_ln'
             pooling_mode: One of 'pool', 'last', 'first', 'sum'
             dropout: Dropout rate for MLP layers
         """
@@ -90,6 +90,54 @@ class RegressionHead(nn.Module):
                 nn.Dropout(dropout),
                 nn.Linear(d_model // 2, 1),
             )
+        elif architecture == "mlp4_high":
+            # 4-layer MLP with two full-width layers (high parameter count)
+            # d_model -> d_model -> d_model -> d_model//2 -> 1
+            self.output_transform = nn.Sequential(
+                nn.Linear(d_model, d_model),
+                nn.ReLU(),
+                nn.Dropout(dropout),
+                nn.Linear(d_model, d_model),
+                nn.ReLU(),
+                nn.Dropout(dropout),
+                nn.Linear(d_model, d_model // 2),
+                nn.ReLU(),
+                nn.Dropout(dropout),
+                nn.Linear(d_model // 2, 1),
+            )
+        elif architecture == "mlp4_low":
+            # 4-layer MLP with gradual dimensionality reduction (low parameter count)
+            # d_model -> d_model -> d_model//2 -> d_model//4 -> 1
+            self.output_transform = nn.Sequential(
+                nn.Linear(d_model, d_model),
+                nn.ReLU(),
+                nn.Dropout(dropout),
+                nn.Linear(d_model, d_model // 2),
+                nn.ReLU(),
+                nn.Dropout(dropout),
+                nn.Linear(d_model // 2, d_model // 4),
+                nn.ReLU(),
+                nn.Dropout(dropout),
+                nn.Linear(d_model // 4, 1),
+            )
+        elif architecture == "mlp5":
+            # 5-layer MLP with gradual dimensionality reduction
+            # d_model -> d_model -> d_model -> d_model//2 -> d_model//4 -> 1
+            self.output_transform = nn.Sequential(
+                nn.Linear(d_model, d_model),
+                nn.ReLU(),
+                nn.Dropout(dropout),
+                nn.Linear(d_model, d_model),
+                nn.ReLU(),
+                nn.Dropout(dropout),
+                nn.Linear(d_model, d_model // 2),
+                nn.ReLU(),
+                nn.Dropout(dropout),
+                nn.Linear(d_model // 2, d_model // 4),
+                nn.ReLU(),
+                nn.Dropout(dropout),
+                nn.Linear(d_model // 4, 1),
+            )
         elif architecture == "mlp2_ln":
             self.output_transform = nn.Sequential(
                 nn.LayerNorm(d_model),
@@ -101,7 +149,7 @@ class RegressionHead(nn.Module):
         else:
             raise ValueError(
                 f"Unknown architecture: {architecture}. "
-                "Choose from: linear, mlp2, mlp3, mlp2_ln"
+                "Choose from: linear, mlp2, mlp3, mlp4_high, mlp4_low, mlp5, mlp2_ln"
             )
 
     def pool(self, x: torch.Tensor) -> torch.Tensor:
@@ -676,7 +724,7 @@ def main():
         "--head-architecture",
         type=str,
         default="mlp2",
-        choices=["linear", "mlp2", "mlp3", "mlp2_ln"],
+        choices=["linear", "mlp2", "mlp3", "mlp4_high", "mlp4_low", "mlp5", "mlp2_ln"],
         help="Regression head architecture",
     )
     parser.add_argument(
@@ -909,6 +957,11 @@ def main():
         }
         training_log.append(log_entry)
 
+        # Save training log after each epoch (so it's available if training is interrupted)
+        log_path = output_dir / "training_log.json"
+        with open(log_path, "w") as f:
+            json.dump(training_log, f, indent=2)
+
     # Evaluate on test set
     print("\nEvaluating on test set...")
     test_metrics = evaluate(wrapped_model, test_loader, criterion, device)
@@ -918,10 +971,7 @@ def main():
     print(f"Test MAE: {test_metrics['mae']:.4f}")
     print(f"Test R²: {test_metrics['r2']:.4f}")
 
-    # Save training log
-    log_path = output_dir / "training_log.json"
-    with open(log_path, "w") as f:
-        json.dump(training_log, f, indent=2)
+    # Print where we saved the training log
     print(f"\nSaved training log to {log_path}")
 
     # Save test predictions
