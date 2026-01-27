@@ -962,111 +962,29 @@ def main():
         with open(log_path, "w") as f:
             json.dump(training_log, f, indent=2)
 
-    # Evaluate on test set
-    print("\nEvaluating on test set...")
-    test_metrics = evaluate(wrapped_model, test_loader, criterion, device)
+    # Print where we saved the training log
+    print(f"\nSaved training log to {log_path}")
+
+    # Run test predictions using the shared function
+    # Import here to avoid circular imports
+    from test_hyenadna_ph import run_test_predictions
+
+    best_checkpoint_path = output_dir / "best_model.pt"
+    predictions_path = output_dir / "test_predictions.csv"
+
+    # Run test predictions (all hyperparameters loaded from config.json)
+    test_metrics = run_test_predictions(
+        checkpoint_path=str(best_checkpoint_path),
+        output_file=str(predictions_path),
+        device=device,
+    )
+
+    print(f"\nTest evaluation complete!")
     print(f"Test loss: {test_metrics['loss']:.4f}")
     print(f"Test MSE: {test_metrics['mse']:.4f}")
     print(f"Test RMSE: {test_metrics['rmse']:.4f}")
     print(f"Test MAE: {test_metrics['mae']:.4f}")
     print(f"Test R²: {test_metrics['r2']:.4f}")
-
-    # Print where we saved the training log
-    print(f"\nSaved training log to {log_path}")
-
-    # Save test predictions
-    wrapped_model.eval()
-    test_preds = []
-    test_true = []
-    test_study_names = []
-    test_sample_ids = []
-    test_set_indices = []
-    with torch.no_grad():
-        for batch in test_loader:
-            input_ids = batch["input_ids"].to(device)
-            ph_true = batch["ph"].to(device)
-            ph_pred = wrapped_model(input_ids)
-            test_preds.extend(ph_pred.cpu().numpy())
-            test_true.extend(ph_true.cpu().numpy())
-            test_study_names.extend(batch["study_name"])
-            test_sample_ids.extend(batch["sample_id"])
-            test_set_indices.extend(batch["set_idx"])
-
-    # Aggregate predictions by sample_id
-    # Each sample_id should have up to 5 predictions (one per set)
-    import pandas as pd
-    from collections import defaultdict
-
-    # Group predictions by sample_id
-    sample_data = defaultdict(
-        lambda: {
-            "study_name": None,
-            "true_ph": None,
-            "predictions": {},  # set_idx -> predicted_ph
-        }
-    )
-
-    for i, sample_id in enumerate(test_sample_ids):
-        set_idx = test_set_indices[i]
-        sample_data[sample_id]["study_name"] = test_study_names[i]
-        sample_data[sample_id]["true_ph"] = test_true[i]
-        sample_data[sample_id]["predictions"][set_idx] = test_preds[i]
-
-    # Create DataFrame with one row per sample_id
-    rows = []
-    for sample_id, data in sorted(sample_data.items()):
-        predictions = data["predictions"]
-        # Get predictions for sets 1-5, fill with NaN if missing
-        pred_1 = predictions.get(1, np.nan)
-        pred_2 = predictions.get(2, np.nan)
-        pred_3 = predictions.get(3, np.nan)
-        pred_4 = predictions.get(4, np.nan)
-        pred_5 = predictions.get(5, np.nan)
-
-        # Calculate mean of available predictions
-        available_preds = [
-            p for p in [pred_1, pred_2, pred_3, pred_4, pred_5] if not np.isnan(p)
-        ]
-        mean_pred = np.mean(available_preds) if available_preds else np.nan
-
-        rows.append(
-            {
-                "study_name": data["study_name"],
-                "sample_id": sample_id,
-                "true_ph": data["true_ph"],
-                "predicted_ph_set1": (
-                    np.round(pred_1, 3) if not np.isnan(pred_1) else np.nan
-                ),
-                "predicted_ph_set2": (
-                    np.round(pred_2, 3) if not np.isnan(pred_2) else np.nan
-                ),
-                "predicted_ph_set3": (
-                    np.round(pred_3, 3) if not np.isnan(pred_3) else np.nan
-                ),
-                "predicted_ph_set4": (
-                    np.round(pred_4, 3) if not np.isnan(pred_4) else np.nan
-                ),
-                "predicted_ph_set5": (
-                    np.round(pred_5, 3) if not np.isnan(pred_5) else np.nan
-                ),
-                "predicted_ph_mean": (
-                    np.round(mean_pred, 3) if not np.isnan(mean_pred) else np.nan
-                ),
-                "residual_mean": (
-                    np.round(data["true_ph"] - mean_pred, 3)
-                    if not np.isnan(mean_pred)
-                    else np.nan
-                ),
-            }
-        )
-
-    predictions_df = pd.DataFrame(rows)
-    predictions_path = output_dir / "test_predictions.csv"
-    predictions_df.to_csv(predictions_path, index=False)
-    print(f"Saved test predictions to {predictions_path}")
-    print(
-        f"  Aggregated {len(test_sample_ids)} predictions into {len(predictions_df)} unique samples"
-    )
 
     print("\nTraining complete!")
 

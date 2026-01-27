@@ -1,0 +1,54 @@
+# Configuration File Usage
+
+## Don't Duplicate Configuration in Arguments
+
+When a script saves hyperparameters or configuration settings to a configuration file (e.g., `config.json`), scripts that use those saved configurations should **read from the configuration file** rather than requiring those same values as command-line arguments.
+
+### Rules
+
+1. **Load from config files, don't duplicate as arguments**: If a configuration file (like `config.json`) exists that stores hyperparameters or settings, scripts should read from that file rather than accepting those same values as command-line arguments.
+
+2. **Exception for modification scripts**: The main exception is if the purpose of the script is specifically to modify these configuration values. In that case, arguments are appropriate since the script is changing the configuration.
+
+3. **Runtime vs. configuration**: Distinguish between:
+   - **Configuration/hyperparameters**: Should be read from config files (e.g., model architecture, learning rate, batch size, dataset paths)
+   - **Runtime settings**: Can be arguments (e.g., device selection, output paths, which checkpoint to load)
+
+### Examples
+
+**Good**: Script reads model_name, batch_size, learning_rate from config.json
+```python
+# Load config.json
+with open("config.json") as f:
+    config = json.load(f)
+model_name = config["model_name"]
+batch_size = config["batch_size"]
+```
+
+**Bad**: Script accepts model_name, batch_size, learning_rate as arguments when config.json exists
+```python
+parser.add_argument("--model-name", ...)
+parser.add_argument("--batch-size", ...)
+parser.add_argument("--learning-rate", ...)
+```
+
+**Good**: Script accepts output path as argument (runtime setting)
+```python
+parser.add_argument("--output", required=True, help="Output file path")
+```
+
+### Benefits
+
+- **Single source of truth**: Configuration values are stored in one place
+- **Consistency**: Ensures scripts use the exact same configuration as training
+- **Simplicity**: Reduces argument clutter and potential for mismatched configurations
+- **Reproducibility**: Makes it clear which configuration was used for a given run
+
+### Implementation
+
+When creating scripts that use saved models or configurations:
+
+1. Require the configuration file to exist (don't make it optional)
+2. Load all hyperparameters from the configuration file
+3. Only accept arguments for runtime settings (output paths, device selection, etc.)
+4. Provide clear error messages if the configuration file is missing or incomplete

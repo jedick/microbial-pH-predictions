@@ -181,3 +181,34 @@ The script implements a separate `RegressionHead` class that maintains separatio
 - Train/val/test split: 75:5:20 (same test set as traditional ML workflow)
 
 </details>
+
+## HyenaDNA test predictions
+
+The `test_hyenadna_ph.py` script runs inference on the test set using a trained HyenaDNA checkpoint and saves predictions to a CSV file. All hyperparameters are automatically loaded from `config.json` in the checkpoint directory, ensuring consistency with the training configuration.
+
+```bash
+# Run test predictions (config.json must exist in checkpoint directory)
+python test_hyenadna_ph.py \
+    --checkpoint results/hyenadna_ph/best_model.pt \
+    --output test_predictions.csv
+```
+
+<details>
+<summary>Details</summary>
+
+The script loads a trained checkpoint and generates predictions on the test set in a single inference pass, computing evaluation metrics and saving detailed predictions to CSV.
+
+- **Automatic configuration**: Loads all hyperparameters (model name, head architecture, pooling mode, batch size, random seed, etc.) from `config.json` in the checkpoint directory
+- **Single inference pass**: Runs the model once on the test set and uses the results for both metrics computation and prediction saving
+- **Consistent data splits**: Uses the same random seed and split logic as training to ensure the same test set
+- **Detailed output**: Saves predictions with per-set predictions (up to 5 sets per sample) and aggregated mean predictions
+
+**Output:**
+- CSV file with columns: study_name, sample_id, true_ph, predicted_ph_set1-5, predicted_ph_mean, residual_mean
+- Metrics printed to console: loss, MSE, RMSE, MAE, R²
+
+**Requirements:**
+- `config.json` must exist in the same directory as the checkpoint file
+- The checkpoint directory structure should match the training output (checkpoint and config.json in the same directory)
+
+</details>

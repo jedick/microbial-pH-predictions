@@ -1,0 +1,83 @@
+# Efficient Model Inference
+
+## Don't Run Models Twice When Once Will Do
+
+When a script needs to both compute evaluation metrics and generate predictions for saving, it should run inference **once** and use the results for both purposes.
+
+### Rules
+
+1. **Single inference pass**: If you need both metrics and predictions from the same dataset, run the model once and collect all necessary data (predictions, true values, metadata) in a single pass.
+
+2. **Compute metrics from collected data**: After collecting predictions and true values, compute metrics from the in-memory arrays rather than running inference again.
+
+3. **Collect all needed data**: In the single inference pass, collect:
+   - Model predictions
+   - True/target values
+   - Any metadata needed for output files (sample IDs, study names, etc.)
+
+### Examples
+
+**Bad**: Running inference twice
+```python
+# First pass: compute metrics
+metrics = evaluate(model, dataloader, criterion, device)
+
+# Second pass: generate predictions for CSV
+for batch in dataloader:
+    predictions = model(batch)
+    # save predictions...
+```
+
+**Good**: Single inference pass
+```python
+# Single pass: collect everything
+predictions = []
+true_values = []
+metadata = []
+
+for batch in dataloader:
+    pred = model(batch)
+    predictions.extend(pred)
+    true_values.extend(batch["target"])
+    metadata.extend(batch["sample_id"])
+
+# Compute metrics from collected data
+metrics = compute_metrics(true_values, predictions)
+
+# Save predictions using same collected data
+save_predictions(predictions, true_values, metadata)
+```
+
+### Benefits
+
+- **Performance**: Reduces inference time by 50% when both metrics and predictions are needed
+- **Consistency**: Ensures metrics and saved predictions are from the exact same forward passes
+- **Efficiency**: Better resource utilization, especially important for large models or datasets
+- **Simplicity**: Cleaner code with a single inference loop
+
+### When It's Acceptable to Run Twice
+
+- When the two passes serve fundamentally different purposes (e.g., different data preprocessing, different model configurations)
+- When memory constraints require processing in separate passes
+- When the second pass uses a different model or different data
+
+### Implementation Pattern
+
+```python
+# Collect all data in one pass
+model.eval()
+all_preds = []
+all_true = []
+all_metadata = []
+
+with torch.no_grad():
+    for batch in dataloader:
+        pred = model(batch["input"])
+        all_preds.extend(pred.cpu().numpy())
+        all_true.extend(batch["target"].cpu().numpy())
+        all_metadata.extend(batch["metadata"])
+
+# Use collected data for both metrics and saving
+metrics = compute_metrics(all_true, all_preds)
+save_predictions(all_preds, all_true, all_metadata)
+```
