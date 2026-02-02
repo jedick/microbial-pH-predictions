@@ -99,6 +99,7 @@ def plot_seaborn(
         (axes[0], hgb_df, "HGB (traditional ML)"),
         (axes[1], hyenadna_df, "HyenaDNA (deep learning)"),
     ]:
+        mae = df["residual"].abs().mean()
         sns.scatterplot(
             data=df,
             x="actual_pH",
@@ -117,6 +118,16 @@ def plot_seaborn(
         ax.set_xlabel("Actual pH")
         ax.set_ylabel("Residual pH (actual − predicted)")
         ax.set_title(title)
+        ax.text(
+            0.98,
+            0.98,
+            f"MAE = {mae:.3f}",
+            transform=ax.transAxes,
+            ha="right",
+            va="top",
+            fontsize=10,
+            bbox=dict(boxstyle="round,pad=0.3", facecolor="white", edgecolor="none"),
+        )
         ax.legend(loc="best", fontsize=8)
         ax.grid(True, alpha=0.3)
 

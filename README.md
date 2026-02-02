@@ -241,3 +241,22 @@ The script loads HGB test predictions and HyenaDNA test predictions from CSV fil
 - `matplotlib`, `seaborn`, `pandas`, `datasets` (Hugging Face)
 
 </details>
+
+## Results
+
+### HyenaDNA training
+
+Summary of experiments in `results/hyenadna/expt*`: hyperparameters from `config.json`, best validation loss from `training_log.json`, and test MAE computed from `test_predictions.csv`. Regenerate with `python summarize_results.py --update-readme`.
+
+| Experiment | Batch size | Epochs | Head      | Pooling | Best val loss | Test MAE   |
+| ---------- | ---------- | ------ | --------- | ------- | ------------- | ---------- |
+| expt1      | 2          | 20     | mlp2      | pool    | 0.1849        | 0.4071     |
+| expt2      | 2          | 20     | mlp3      | pool    | 0.1673        | **0.3879** |
+| expt3      | 2          | 20     | mlp2_ln   | pool    | 0.1869        | 0.4067     |
+| expt4      | 2          | 20     | mlp3      | last    | 0.1992        | 0.4233     |
+| expt5      | 2          | 20     | mlp4_low  | pool    | 0.1963        | 0.4052     |
+| expt6      | 2          | 24     | mlp4_high | pool    | 0.2060        | 0.4629     |
+
+Comparison of best HyenaDNA model (lowest test MAE) with HGB (traditional ML):
+
+![Residual vs actual pH](results/figures/residual_vs_actual.png)
