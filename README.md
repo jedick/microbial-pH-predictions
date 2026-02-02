@@ -212,3 +212,32 @@ The script loads a trained checkpoint and generates predictions on the test set 
 - The checkpoint directory structure should match the training output (checkpoint and config.json in the same directory)
 
 </details>
+
+## Residual vs actual pH plots
+
+The `plot_residuals.py` script produces a Seaborn figure of residual pH (y-axis) vs actual pH (x-axis) for the HGB and HyenaDNA models. Side-by-side panels compare traditional ML and deep learning predictions; points are colored by environment from the Hugging Face dataset.
+
+```bash
+# Default paths (HGB and HyenaDNA CSVs in results/)
+python plot_residuals.py
+
+# Custom paths
+python plot_residuals.py \
+    --hgb-csv results/hgb_test_predictions.csv \
+    --hyenadna-csv results/hyenadna_ph/test_predictions.csv \
+    --output-dir results/figures
+```
+
+<details>
+<summary>Details</summary>
+
+The script loads HGB test predictions and HyenaDNA test predictions from CSV files, joins environment labels from the Hugging Face dataset (by sample_id), and generates a single figure with two panels. Legend order and colors for environments are fixed for publication consistency.
+
+- **Environment labels**: Environment is loaded from the Hugging Face dataset and merged on sample_id; not taken from study_name in the CSVs
+- **Legend and colors**: Environments follow a fixed order (River & Seawater, Lake & Pond, Groundwater, Geothermal, Hyperalkaline, Sediment, Soil) with specified hex colors
+- **Output**: Saves PNG (150 dpi) and PDF to the output directory; default filenames are `residual_vs_actual.png` and `residual_vs_actual.pdf`
+
+**Requirements:**
+- `matplotlib`, `seaborn`, `pandas`, `datasets` (Hugging Face)
+
+</details>
