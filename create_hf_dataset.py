@@ -179,7 +179,7 @@ def create_dataset_records(
 ) -> List[Dict]:
     """
     Create dataset records from fasta files.
-    Returns a list of dictionaries with study_name, sample_id, pH, Bacteria, Archaea, and sequences.
+    Returns a list of dictionaries with sample_id, study_name, pH, Bacteria, Archaea, and sequences.
     """
     records = []
 
@@ -200,8 +200,8 @@ def create_dataset_records(
 
         # Create record
         record = {
-            "study_name": study_name,
             "sample_id": sample_id,
+            "study_name": study_name,
             "pH": data["pH"],
             "sequences": sequences,  # List of strings for easy slicing
             "num_sequences": len(sequences),

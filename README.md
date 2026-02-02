@@ -44,7 +44,7 @@ The script processes samples from `sample_data.csv` that have sample_ids matchin
 
 The `create_hf_dataset.py` script creates a Hugging Face dataset from DNA sequences stored in gzipped FASTA files and sample metadata. This dataset serves as the single source of truth for sample data across all downstream tasks, ensuring consistent train-test splits between traditional ML and deep learning workflows.
 
-**Important**: After this step, `sample_data.csv` is no longer required for downstream tasks. The HuggingFace dataset contains all necessary sample metadata (sample_id, study_name, pH, environment, Bacteria and Archaea booleans) and is used by both the traditional ML workflow (`predict_ph.py`) and the deep learning workflow (`train_hyenadna_ph.py`) to maintain consistent data splits.
+**Important**: After this step, `sample_data.csv` is no longer required for downstream tasks. The HuggingFace dataset contains all necessary sample metadata (sample_id, study_name, pH, environment, Bacteria and Archaea booleans) and is used by both the traditional ML workflow (`train_sklearn.py`) and the deep learning workflow (`train_hyenadna.py`) to maintain consistent data splits.
 
 ```bash
 # Requires HF_TOKEN in .env file
@@ -72,26 +72,26 @@ The `process_rdp_data.py` script is used to aggregate taxonomic counts from RDP 
 
 ## pH prediction from phylum counts
 
-The `predict_ph.py` script implements a machine learning pipeline for predicting pH values from bacterial phylum abundances. The workflow loads sample metadata from the HuggingFace dataset, merges it with phylum count features, and performs an 80:20 train-test split (same test set as the deep learning workflow).
+The `train_sklearn.py` script implements a machine learning pipeline for predicting pH values from bacterial phylum abundances. The workflow loads sample metadata from the HuggingFace dataset, merges it with phylum count features, and performs an 80:20 train-test split (same test set as the deep learning workflow).
 
 ```bash
 # Test grid search with KNN (default, 4 combinations)
-python predict_ph.py --model knn --grid-search test
+python train_sklearn.py --model knn --grid-search test
 
 # Full grid search with Random Forest (comprehensive)
-python predict_ph.py --model rf --grid-search full
+python train_sklearn.py --model rf --grid-search full
 
 # Skip grid search and use default parameters
-python predict_ph.py --model hgb --grid-search none
+python train_sklearn.py --model hgb --grid-search none
 
 # Custom CV folds and random seed
-python predict_ph.py --model knn --grid-search test --cv-folds 10 --random-seed 123
+python train_sklearn.py --model knn --grid-search test --cv-folds 10 --random-seed 123
 
 # Specify custom dataset and output directory
-python predict_ph.py --model rf \
+python train_sklearn.py --model rf \
     --dataset-repo jedick/microbial-DNA-pH \
     --phylum-counts data/bacteria_phylum_counts.csv.xz \
-    --output-dir results/rf_experiment
+    --output-dir results/sklearn/rf_experiment
 ```
 
 <details>
@@ -126,22 +126,22 @@ python predict_ph.py --model rf \
 - `full`: Comprehensive grids (hundreds of combinations) for thorough tuning
 - `none`: Skip grid search and use default parameters
 
-**Output Files:**
-- `{model}_test_predictions.csv`: Test set predictions with study_name, sample_id, true_pH, predicted_pH, and residual
+**Output Files:** (default directory: `results/sklearn`)
+- `{model}_test_predictions.csv`: Test set predictions with sample_id, study_name, true_pH, predicted_pH, and residual
 - `{model}_summary.txt`: Model summary with metrics and grid search results (if performed)
 
 </details>
 
 ## pH prediction from HyenaDNA sequence model
 
-The `train_hyenadna_ph.py` script trains a HyenaDNA model with a regression head to predict continuous pH values from DNA sequences. The script loads data from the HuggingFace dataset, uses pretrained HyenaDNA weights, concatenates multiple sequences per sample with [SEP] tokens, and performs a 75:5:20 train-val-test split (same test set as the traditional ML workflow).
+The `train_hyenadna.py` script trains a HyenaDNA model with a regression head to predict continuous pH values from DNA sequences. The script loads data from the HuggingFace dataset, uses pretrained HyenaDNA weights, concatenates multiple sequences per sample with [SEP] tokens, and performs a 75:5:20 train-val-test split (same test set as the traditional ML workflow).
 
 ```bash
 # Basic training with defaults (tiny model, downloads from HuggingFace)
-python train_hyenadna_ph.py --download-model
+python train_hyenadna.py --download-model
 
 # Custom configuration with larger model
-python train_hyenadna_ph.py \
+python train_hyenadna.py \
     --model-name hyenadna-small-32k-seqlen \
     --head-architecture mlp3 \
     --pooling-mode last \
@@ -152,7 +152,7 @@ python train_hyenadna_ph.py \
     --download-model
 
 # Train with frozen backbone (only regression head)
-python train_hyenadna_ph.py --freeze-backbone --download-model
+python train_hyenadna.py --freeze-backbone --download-model
 ```
 
 <details>
@@ -184,12 +184,12 @@ The script implements a separate `RegressionHead` class that maintains separatio
 
 ## HyenaDNA test predictions
 
-The `test_hyenadna_ph.py` script runs inference on the test set using a trained HyenaDNA checkpoint and saves predictions to a CSV file. All hyperparameters are automatically loaded from `config.json` in the checkpoint directory, ensuring consistency with the training configuration.
+The `test_hyenadna.py` script runs inference on the test set using a trained HyenaDNA checkpoint and saves predictions to a CSV file. All hyperparameters are automatically loaded from `config.json` in the checkpoint directory, ensuring consistency with the training configuration.
 
 ```bash
 # Run test predictions (config.json must exist in checkpoint directory)
-python test_hyenadna_ph.py \
-    --checkpoint results/hyenadna_ph/best_model.pt \
+python test_hyenadna.py \
+    --checkpoint results/hyenadna/best_model.pt \
     --output test_predictions.csv
 ```
 
@@ -204,7 +204,7 @@ The script loads a trained checkpoint and generates predictions on the test set 
 - **Detailed output**: Saves predictions with per-set predictions (up to 5 sets per sample) and aggregated mean predictions
 
 **Output:**
-- CSV file with columns: study_name, sample_id, true_ph, predicted_ph_set1-5, predicted_ph_mean, residual_mean
+- CSV file with columns: sample_id, study_name, true_ph, predicted_ph_set1-5, predicted_ph_mean, residual_mean
 - Metrics printed to console: loss, MSE, RMSE, MAE, R²
 
 **Requirements:**
@@ -218,13 +218,13 @@ The script loads a trained checkpoint and generates predictions on the test set 
 The `plot_residuals.py` script produces a Seaborn figure of residual pH (y-axis) vs actual pH (x-axis) for the HGB and HyenaDNA models. Side-by-side panels compare traditional ML and deep learning predictions; points are colored by environment from the Hugging Face dataset.
 
 ```bash
-# Default paths (HGB and HyenaDNA CSVs in results/)
+# Default paths (HGB in results/sklearn/, HyenaDNA in results/hyenadna/)
 python plot_residuals.py
 
 # Custom paths
 python plot_residuals.py \
-    --hgb-csv results/hgb_test_predictions.csv \
-    --hyenadna-csv results/hyenadna_ph/test_predictions.csv \
+    --hgb-csv results/sklearn/hgb_test_predictions.csv \
+    --hyenadna-csv results/hyenadna/test_predictions.csv \
     --output-dir results/figures
 ```
 

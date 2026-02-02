@@ -8,8 +8,8 @@ Face dataset.
 
 Usage:
   python plot_residuals.py
-  python plot_residuals.py --hgb-csv results/hgb_test_predictions.csv \\
-      --hyenadna-csv results/hyenadna_ph/test_predictions.csv --output-dir results/figures
+  python plot_residuals.py --hgb-csv results/sklearn/hgb_test_predictions.csv \\
+      --hyenadna-csv results/hyenadna/test_predictions.csv --output-dir results/figures
 
 Requires: matplotlib, seaborn, pandas, datasets (Hugging Face)
 """
@@ -61,7 +61,7 @@ def load_environment_from_hf(dataset_repo: str) -> pd.DataFrame:
 
 
 def load_hgb_data(path: Path) -> pd.DataFrame:
-    """Load HGB predictions CSV. Columns: study_name, sample_id, true_pH, predicted_pH, residual."""
+    """Load HGB predictions CSV. Columns: sample_id, study_name, true_pH, predicted_pH, residual."""
     df = pd.read_csv(path)
     df = df.rename(columns={"true_pH": "actual_pH"})
     df["model"] = "HGB"
@@ -137,14 +137,14 @@ def main():
     parser.add_argument(
         "--hgb-csv",
         type=str,
-        default="results/hgb_test_predictions.csv",
-        help="Path to HGB test predictions CSV (default: results/hgb_test_predictions.csv)",
+        default="results/sklearn/hgb_test_predictions.csv",
+        help="Path to HGB test predictions CSV (default: results/sklearn/hgb_test_predictions.csv)",
     )
     parser.add_argument(
         "--hyenadna-csv",
         type=str,
-        default="results/hyenadna_ph/test_predictions.csv",
-        help="Path to HyenaDNA test predictions CSV (default: results/hyenadna_ph/test_predictions.csv)",
+        default="results/hyenadna/test_predictions.csv",
+        help="Path to HyenaDNA test predictions CSV (default: results/hyenadna/test_predictions.csv)",
     )
     parser.add_argument(
         "--output-dir",
@@ -170,7 +170,7 @@ def main():
     if not hyenadna_path.exists():
         raise FileNotFoundError(
             f"HyenaDNA predictions not found: {hyenadna_path}. "
-            "Run: python test_hyenadna_ph.py --checkpoint <path> --output results/hyenadna_ph/test_predictions.csv"
+            "Run: python test_hyenadna.py --checkpoint <path> --output results/hyenadna/test_predictions.csv"
         )
 
     print(f"Loading environment labels from {args.dataset_repo}...")

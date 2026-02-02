@@ -775,7 +775,7 @@ def main():
     parser.add_argument(
         "--output-dir",
         type=str,
-        default="results/hyenadna_ph",
+        default="results/hyenadna",
         help="Output directory for results",
     )
     parser.add_argument(
@@ -967,7 +967,7 @@ def main():
 
     # Run test predictions using the shared function
     # Import here to avoid circular imports
-    from test_hyenadna_ph import run_test_predictions
+    from test_hyenadna import run_test_predictions
 
     best_checkpoint_path = output_dir / "best_model.pt"
     predictions_path = output_dir / "test_predictions.csv"

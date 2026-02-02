@@ -1,0 +1,13 @@
+---
+description: Rename files using git mv to preserve version history
+alwaysApply: true
+---
+
+# Renaming files
+
+When renaming or moving files in this project, **always use `git mv`** so that Git records the rename and preserves version history (e.g. `git blame` and history follow the file).
+
+- **Do**: `git mv old_name.py new_name.py`
+- **Don't**: Create a new file, copy content, then delete the old file (that loses history)
+
+Apply the same approach when moving files into or out of directories: `git mv path/to/old path/to/new`.

@@ -52,7 +52,7 @@ def load_and_preprocess_data(dataset_repo, phylum_counts_path, random_seed=42):
     -------
     tuple
         (X_train, X_test, y_train, y_test, feature_names, test_metadata)
-        where test_metadata is a DataFrame with study_name and sample_id for test set
+        where test_metadata is a DataFrame with sample_id and study_name for test set
     """
     # Load sample data from HF dataset
     print(f"Loading dataset from {dataset_repo}...")
@@ -73,12 +73,12 @@ def load_and_preprocess_data(dataset_repo, phylum_counts_path, random_seed=42):
             )
 
     sample_data = pd.DataFrame(sample_data_list)
-    # Sort by sample_id to ensure consistent ordering (same as train_hyenadna_ph.py)
+    # Sort by sample_id to ensure consistent ordering (same as train_hyenadna.py)
     sample_data = sample_data.sort_values("sample_id").reset_index(drop=True)
     print(f"Sample data shape after filtering (null pH removed): {sample_data.shape}")
 
     # Create stratified 80:20 train-test split on HF dataset (before merging with phylum counts)
-    # This ensures the same test split as train_hyenadna_ph.py
+    # This ensures the same test split as train_hyenadna.py
     print("Creating stratified train-test split (80:20)...")
     sample_ids = sample_data["sample_id"].values
     environment = sample_data["environment"].values
@@ -134,7 +134,7 @@ def load_and_preprocess_data(dataset_repo, phylum_counts_path, random_seed=42):
     y_test = merged_data.loc[test_mask, "pH"].values
 
     metadata_test = (
-        merged_data.loc[test_mask, ["study_name", "sample_id"]]
+        merged_data.loc[test_mask, ["sample_id", "study_name"]]
         .copy()
         .reset_index(drop=True)
     )
@@ -262,7 +262,7 @@ def get_param_grid(model_type, grid_type="test"):
 
 def save_predictions(y_true, y_pred, metadata, output_path):
     """
-    Save predictions to CSV file with study_name and sample_id.
+    Save predictions to CSV file with sample_id and study_name.
 
     Parameters
     ----------
@@ -271,14 +271,14 @@ def save_predictions(y_true, y_pred, metadata, output_path):
     y_pred : array-like
         Predicted pH values
     metadata : pd.DataFrame
-        DataFrame with study_name and sample_id columns
+        DataFrame with sample_id and study_name columns
     output_path : str
         Path to output CSV file
     """
     results_df = pd.DataFrame(
         {
-            "study_name": metadata["study_name"].values,
             "sample_id": metadata["sample_id"].values,
+            "study_name": metadata["study_name"].values,
             "true_pH": y_true,
             "predicted_pH": np.round(y_pred, 3),
             "residual": np.round(y_true - y_pred, 3),
@@ -322,8 +322,8 @@ def main():
     parser.add_argument(
         "--output-dir",
         type=str,
-        default="results",
-        help="Output directory for results (default: results)",
+        default="results/sklearn",
+        help="Output directory for results (default: results/sklearn)",
     )
     parser.add_argument(
         "--grid-search",

@@ -29,7 +29,7 @@ from huggingface_wrapper import HyenaDNAPreTrainedModel
 from standalone_hyenadna import CharacterTokenizer
 
 # Import from train script
-from train_hyenadna_ph import (
+from train_hyenadna import (
     MODEL_CONFIGS,
     HyenaDNAForRegression,
     RegressionHead,
@@ -288,8 +288,8 @@ def run_test_predictions(
 
         rows.append(
             {
-                "study_name": data["study_name"],
                 "sample_id": sample_id,
+                "study_name": data["study_name"],
                 "true_ph": data["true_ph"],
                 "predicted_ph_set1": (
                     np.round(pred_1, 3) if not np.isnan(pred_1) else np.nan
