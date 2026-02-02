@@ -168,9 +168,9 @@ def process_rdp_directory(
     Returns
     -------
     pd.DataFrame
-        Combined DataFrame with two-level index (study_name, sample_id) and taxonomic
-        names as columns. All samples from all files are included. If taxonomic_level
-        is specified, only columns for that level are included.
+        Combined DataFrame with index sample_id and taxonomic names as columns.
+        All samples from all files are included. If taxonomic_level is specified,
+        only columns for that level are included.
 
     Examples
     --------
@@ -218,9 +218,6 @@ def process_rdp_directory(
         print(f"\n[{i}/{len(tab_files)}] Processing: {tab_file.name}")
 
         try:
-            # Extract study name from filename
-            study_name = tab_file.stem
-
             # Process the file (returns dict: {sample_id: {taxon_name: count}})
             sample_counts = process_rdp_data(str(tab_file), domain=domain)
 
@@ -236,7 +233,7 @@ def process_rdp_directory(
             for sample_id, taxa_dict in sample_counts.items():
                 if not taxa_dict:  # Skip empty samples
                     continue
-                record = {"study_name": study_name, "sample_id": sample_id}
+                record = {"sample_id": sample_id}
                 record.update(taxa_dict)
                 records.append(record)
                 all_taxa.update(taxa_dict.keys())
@@ -249,7 +246,7 @@ def process_rdp_directory(
             df = pd.DataFrame(records)
 
             # Set index
-            df = df.set_index(["study_name", "sample_id"])
+            df = df.set_index("sample_id")
 
             # Convert all count columns to integers (they're already ints in the dict, but
             # pandas might infer float dtype, so we explicitly convert)
@@ -313,7 +310,7 @@ def process_rdp_directory(
     print(f"  Total samples: {len(combined_df)}")
     print(f"  Total taxonomic groups: {len(combined_df.columns)}")
     print(f"  Total reads: {combined_df.sum().sum():,.0f}")
-    print(f"  Studies: {combined_df.index.get_level_values('study_name').nunique()}")
+    print(f"  Studies: {len(all_results)}")
 
     # Save to CSV
     if output_file is None:

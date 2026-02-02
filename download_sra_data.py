@@ -7,7 +7,7 @@ This script:
 - Downloads only the first 0.25MB from NCBI SRA URLs
 - Processes incomplete gzip files (extract, remove last sequence, re-gzip)
 - Saves to data/fasta/<study_name>/<sample_id>.fasta.gz
-- Skips existing files and handles duplicates
+- Skips existing files
 - Cleans up temporary files on interruption
 """
 
@@ -20,7 +20,7 @@ import subprocess
 import sys
 import tempfile
 from pathlib import Path
-from typing import Set, Tuple
+from typing import Set
 
 import requests
 
@@ -246,14 +246,10 @@ def main():
     # Pattern to match SRR*, ERR*, or DRR* sample_ids
     pattern = re.compile(r"^(SRR|ERR|DRR)\d+$")
 
-    # Track processed sample_ids to skip duplicates
-    processed_samples: Set[Tuple[str, str]] = set()
-
     # Statistics
     total_samples = 0
     skipped_pattern = 0
     skipped_existing = 0
-    skipped_duplicate = 0
     downloaded = 0
     failed = 0
 
@@ -278,14 +274,6 @@ def main():
                 continue
 
             total_samples += 1
-
-            # Check for duplicates
-            key = (study_name, sample_id)
-            if key in processed_samples:
-                skipped_duplicate += 1
-                continue
-
-            processed_samples.add(key)
 
             # Check if already downloaded
             output_dir = fasta_base_dir / study_name
@@ -312,7 +300,6 @@ def main():
         print(f"  Total samples matching pattern: {total_samples}")
         print(f"  Downloaded: {downloaded}")
         print(f"  Skipped (already exists): {skipped_existing}")
-        print(f"  Skipped (duplicate in CSV): {skipped_duplicate}")
         print(f"  Failed: {failed}")
         print(f"  Skipped (wrong pattern): {skipped_pattern}")
         print("=" * 60)

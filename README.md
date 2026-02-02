@@ -44,7 +44,7 @@ The script processes samples from `sample_data.csv` that have sample_ids matchin
 
 The `create_hf_dataset.py` script creates a Hugging Face dataset from DNA sequences stored in gzipped FASTA files and sample metadata. This dataset serves as the single source of truth for sample data across all downstream tasks, ensuring consistent train-test splits between traditional ML and deep learning workflows.
 
-**Important**: After this step, `sample_data.csv` is no longer required for downstream tasks. The HuggingFace dataset contains all necessary sample metadata (pH, environment, domain, study_name, sample_id) and is used by both the traditional ML workflow (`predict_ph.py`) and the deep learning workflow (`train_hyenadna_ph.py`) to maintain consistent data splits.
+**Important**: After this step, `sample_data.csv` is no longer required for downstream tasks. The HuggingFace dataset contains all necessary sample metadata (sample_id, study_name, pH, environment, Bacteria and Archaea booleans) and is used by both the traditional ML workflow (`predict_ph.py`) and the deep learning workflow (`train_hyenadna_ph.py`) to maintain consistent data splits.
 
 ```bash
 # Requires HF_TOKEN in .env file
@@ -59,7 +59,7 @@ The script processes DNA sequences from FASTA files organized by study (`data/fa
 - **Automatic validation**: Ensures all FASTA files have corresponding entries in `sample_data.csv`
 - **Incremental updates**: Skips samples that already exist in the dataset, allowing for incremental additions
 - **Size management**: Limits total DNA length per sample to 0.25 MB to manage dataset size
-- **Metadata integration**: Includes sample metadata (pH, environment, domain) alongside sequences
+- **Metadata integration**: Includes sample metadata (pH, environment, Bacteria and Archaea booleans) alongside sequences
 - **Consistent splits**: Used by both workflows to ensure identical train-test splits (same random seed, same test set)
 
 </details>

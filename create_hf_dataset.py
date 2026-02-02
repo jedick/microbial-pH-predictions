@@ -8,7 +8,7 @@ import gzip
 import csv
 import re
 from pathlib import Path
-from typing import Dict, List, Tuple, Optional
+from typing import Dict, List, Optional, Tuple
 from dotenv import load_dotenv
 from datasets import Dataset, DatasetDict, load_dataset
 from huggingface_hub import HfApi, login
@@ -89,35 +89,39 @@ def read_sequences_from_fasta(
     return sequences
 
 
-def load_sample_data(csv_path: Path) -> Dict[Tuple[str, str], Dict]:
+def _is_missing(value: str) -> bool:
+    """Return True if value is missing or NA."""
+    return not value or not value.strip() or value.strip().upper() == "NA"
+
+
+def load_sample_data(csv_path: Path) -> Dict[str, Dict]:
     """
-    Load sample data from CSV and return a dictionary mapping (study_name, sample_id) -> data.
-    Only includes entries with domain == "Bacteria".
+    Load sample data from CSV and return a dictionary mapping sample_id -> data.
+    Only includes entries where Bacteria_Zc is not missing.
     """
     sample_data = {}
     with open(csv_path, "r") as f:
         reader = csv.DictReader(f)
         for row in reader:
-            # Filter for only Bacteria domain
-            if row["domain"] != "Bacteria":
+            # Filter for rows with Bacteria_Zc present (current data => Bacteria only; Archaea all False)
+            if _is_missing(row.get("Bacteria_Zc", "")):
                 continue
 
-            study_name = row["study_name"]
             sample_id = row["sample_id"]
-            key = (study_name, sample_id)
-            sample_data[key] = {
-                "study_name": study_name,
+            sample_data[sample_id] = {
+                "study_name": row["study_name"],
                 "sample_id": sample_id,
-                "pH": float(row["pH"]) if row["pH"] and row["pH"] != "NA" else None,
+                "pH": float(row["pH"]) if not _is_missing(row.get("pH", "")) else None,
                 "sample": row["sample"],
                 "environment": row["environment"],
-                "domain": row["domain"],
+                "Bacteria": True,
+                "Archaea": False,
             }
     return sample_data
 
 
 def validate_fasta_files(
-    fasta_dir: Path, sample_data: Dict[Tuple[str, str], Dict]
+    fasta_dir: Path, sample_data: Dict[str, Dict]
 ) -> List[Tuple[Path, str, str]]:
     """
     Find fasta files that have matching entries in sample_data.csv.
@@ -138,9 +142,7 @@ def validate_fasta_files(
                 ".fasta", ""
             )  # Remove .fasta.gz -> get SRR7775171
 
-            key = (study_name, sample_id)
-            if key not in sample_data:
-                # print(f"  Skipping {fasta_file}: no matching entry in sample_data.csv (study_name={study_name}, sample_id={sample_id})")
+            if sample_id not in sample_data:
                 skipped_count += 1
             else:
                 fasta_files.append((fasta_file, study_name, sample_id))
@@ -155,13 +157,13 @@ def validate_fasta_files(
 
 def get_existing_records(dataset_repo: str) -> set:
     """
-    Get set of (study_name, sample_id) tuples that already exist in the dataset.
+    Get set of sample_id that already exist in the dataset.
     """
     try:
         dataset = load_dataset(dataset_repo, split="train", token=HF_TOKEN)
         existing = set()
         for row in dataset:
-            existing.add((row["study_name"], row["sample_id"]))
+            existing.add(row["sample_id"])
         print(f"✓ Found {len(existing)} existing records in dataset")
         return existing
     except Exception as e:
@@ -172,20 +174,18 @@ def get_existing_records(dataset_repo: str) -> set:
 
 def create_dataset_records(
     fasta_files: List[Tuple[Path, str, str]],
-    sample_data: Dict[Tuple[str, str], Dict],
+    sample_data: Dict[str, Dict],
     existing_records: set,
 ) -> List[Dict]:
     """
     Create dataset records from fasta files.
-    Returns a list of dictionaries with study_name, sample_id, pH, and sequences.
+    Returns a list of dictionaries with study_name, sample_id, pH, Bacteria, Archaea, and sequences.
     """
     records = []
 
     for fasta_path, study_name, sample_id in fasta_files:
-        key = (study_name, sample_id)
-
         # Skip if already exists
-        if key in existing_records:
+        if sample_id in existing_records:
             print(f"  Skipping {study_name}/{sample_id} (already exists)")
             continue
 
@@ -196,7 +196,7 @@ def create_dataset_records(
         total_length = sum(len(seq) for seq in sequences)
 
         # Get sample data
-        data = sample_data[key]
+        data = sample_data[sample_id]
 
         # Create record
         record = {
@@ -205,10 +205,11 @@ def create_dataset_records(
             "pH": data["pH"],
             "sequences": sequences,  # List of strings for easy slicing
             "num_sequences": len(sequences),
-            "total_dna_length": total_length,
+            "total_DNA_length": total_length,
             "sample": data["sample"],
             "environment": data["environment"],
-            "domain": data["domain"],
+            "Bacteria": data["Bacteria"],
+            "Archaea": data["Archaea"],
         }
 
         records.append(record)
