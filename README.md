@@ -134,22 +134,14 @@ python train_sklearn.py --model rf \
 
 ## pH prediction from HyenaDNA sequence model
 
-The `train_hyenadna.py` script trains a HyenaDNA model with a regression head to predict continuous pH values from DNA sequences. The script loads data from the HuggingFace dataset, uses pretrained HyenaDNA weights, concatenates multiple sequences per sample with [SEP] tokens, and performs a 75:5:20 train-val-test split (same test set as the traditional ML workflow).
+The `train_hyenadna.py` script trains a HyenaDNA model with a regression head to predict continuous pH values from DNA sequences. The script loads data from the HuggingFace dataset, uses pretrained HyenaDNA weights, concatenates multiple sequences per sample with [SEP] tokens, and performs a 70:10:20 train-val-test split (same test set as the traditional ML workflow).
 
 ```bash
 # Basic training with defaults (tiny model, downloads from HuggingFace)
 python train_hyenadna.py --download-model
 
-# Custom configuration with larger model
-python train_hyenadna.py \
-    --model-name hyenadna-small-32k-seqlen \
-    --head-architecture mlp3 \
-    --pooling-mode last \
-    --batch-size 2 \
-    --learning-rate 5e-5 \
-    --num-epochs 20 \
-    --freeze-backbone \
-    --download-model
+# Custom configuration with larger model (corresponds to `results/hyenadna/expt1`)
+python train_hyenadna.py --model-name hyenadna-small-32k-seqlen --head-architecture linear --batch-size 2 --num-epochs 20
 
 # Train with frozen backbone (only regression head)
 python train_hyenadna.py --freeze-backbone --download-model
@@ -166,7 +158,7 @@ The script implements a separate `RegressionHead` class that maintains separatio
 - **Sequence handling**: Concatenates multiple DNA sequences per sample with [SEP] tokens, truncates to max_length if needed
 - **Training options**: Can freeze backbone (only train head) or fine-tune entire model, configurable loss functions (MSE, MAE, SmoothL1, Huber)
 - **Evaluation**: Computes MSE, RMSE, MAE, and R² metrics on train/val/test splits
-- **Data split**: Creates a 75:5:20 train-val-test split using the same random seed (42) and test set as the traditional ML workflow
+- **Data split**: Creates a 70:10:20 train-val-test split using the same random seed (42) and test set as the traditional ML workflow
 
 **Output Files:**
 - `best_model.pt`: Best model checkpoint based on validation loss
@@ -250,12 +242,13 @@ Summary of experiments in `results/hyenadna/expt*`: hyperparameters from `config
 
 | Experiment | Batch size | Epochs | Head      | Pooling | Best val loss | Test MAE   |
 | ---------- | ---------- | ------ | --------- | ------- | ------------- | ---------- |
-| expt1      | 2          | 20     | mlp2      | pool    | 0.1849        | 0.4071     |
-| expt2      | 2          | 20     | mlp3      | pool    | 0.1673        | **0.3879** |
-| expt3      | 2          | 20     | mlp2_ln   | pool    | 0.1869        | 0.4067     |
-| expt4      | 2          | 20     | mlp3      | last    | 0.1992        | 0.4233     |
-| expt5      | 2          | 20     | mlp4_low  | pool    | 0.1963        | 0.4052     |
-| expt6      | 2          | 24     | mlp4_high | pool    | 0.2060        | 0.4629     |
+| expt1      | 2          | 20     | linear    | pool    | 0.1708        | **0.3790** |
+| expt2      | 2          | 20     | mlp2      | pool    | 0.1849        | 0.4071     |
+| expt3      | 2          | 20     | mlp3      | pool    | 0.1673        | 0.3879     |
+| expt4      | 2          | 20     | mlp2_ln   | pool    | 0.1869        | 0.4067     |
+| expt5      | 2          | 20     | mlp3      | last    | 0.1992        | 0.4233     |
+| expt6      | 2          | 20     | mlp4_low  | pool    | 0.1963        | 0.4052     |
+| expt7      | 2          | 24     | mlp4_high | pool    | 0.2060        | 0.4629     |
 
 Comparison of best HyenaDNA model (lowest test MAE) with HGB (traditional ML):
 

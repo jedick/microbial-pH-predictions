@@ -1,6 +1,6 @@
 {
   "model_name": "hyenadna-small-32k-seqlen",
-  "head_architecture": "mlp2_ln",
+  "head_architecture": "mlp3",
   "pooling_mode": "pool",
   "freeze_backbone": false,
   "batch_size": 2,

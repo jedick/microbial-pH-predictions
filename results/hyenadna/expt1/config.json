@@ -1,6 +1,6 @@
 {
   "model_name": "hyenadna-small-32k-seqlen",
-  "head_architecture": "mlp2",
+  "head_architecture": "linear",
   "pooling_mode": "pool",
   "freeze_backbone": false,
   "batch_size": 2,
@@ -10,7 +10,7 @@
   "weight_decay": 0.01,
   "dataset_repo": "jedick/microbial-DNA-pH",
   "random_seed": 42,
-  "output_dir": "results/hyenadna_ph",
+  "output_dir": "results/hyenadna",
   "checkpoint_dir": "./checkpoints",
   "download_model": false
 }
